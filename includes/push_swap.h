@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:44:48 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/03/19 12:45:13 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/03/19 13:20:12 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,14 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "../get_next_line/get_next_line.h"
+# include "../libft/libft.h"
+
+# define ERROR			-1
+
+typedef struct	s_stack
+{
+	char		**str_num;
+	int			**nums;
+}				t_stack;
 
 #endif
