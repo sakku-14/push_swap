@@ -1,15 +1,41 @@
 #include "../includes/checker.h"
 
-t_stack
-	*lstnew(int num)
+t_dlist	*ft_dlstlast(t_dlist *lst)
 {
-	t_stack *ret;
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
 
-	ret = NULL;
-	ret->num = num;
-	ret->prev = ret;
-	ret->next = ret;
-	return (ret);
+void	ft_dlstadd_back(t_dlist **lst, t_dlist *new)
+{
+	t_dlist *tmp;
+
+	tmp = *lst;
+	if (!new)
+		return ;
+	if (*lst)
+	{
+		tmp = ft_dlstlast(*lst);
+		tmp->next = new;
+	}
+	else
+		*lst = new;
+}
+
+t_dlist
+	*ft_dlstnew(int num)
+{
+	t_dlist *lst;
+
+	if (!(lst = malloc(sizeof(t_dlist))))
+		return (NULL);
+	lst->next = lst;
+	lst->prev = lst;
+	lst->num = num;
+	return (lst);
 }
 
 void
@@ -19,7 +45,7 @@ void
 	int	first_num;
 
 	first_num = ft_atoi(av[1]);
-	checker->top = lstnew(first_num);
+	checker->top = ft_dlstnew(first_num);
 }
 
 int

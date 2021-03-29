@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:19:38 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/03/28 19:06:29 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/03/29 12:45:29 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@
 # include "../get_next_line/get_next_line.h"
 # include "../libft/libft.h"
 
-typedef struct	s_stack
+typedef struct	s_dlist
 {
-	int	num;
-	struct s_stack	*prev;
-	struct s_stack	*next;
-}				t_stack;
+	int				num;
+	struct s_dlist	*prev;
+	struct s_dlist	*next;
+}				t_dlist;
 
 typedef struct	s_checker
 {
-	t_stack	*top;
-	t_stack	*end;
-	t_stack	*head;
-	t_stack	*tail;
+	t_dlist	*top;
+	t_dlist	*end;
+	t_dlist	*head;
+	t_dlist	*tail;
 	int		len;
 }				t_checker;
 
