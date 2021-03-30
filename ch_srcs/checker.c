@@ -1,5 +1,7 @@
 #include "../includes/checker.h"
 
+//TODO: improve lstadd_back for dlst
+
 t_dlist	*ft_dlstlast(t_dlist *lst)
 {
 	if (!lst)
