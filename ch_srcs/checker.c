@@ -74,18 +74,20 @@ void
 	t_dlist	*lst;
 	int		i;
 
+	printf("________________Stack_Circumstance____________________\n");
+	printf("\n*****************\n>>>>>Stack_A<<<<<\n*****************\n");
 	i = 1;
 	lst = st->a.head;
-	printf("%d->%d:addr->%p:prev->%p:next->%p\n", i, lst->num, lst, lst->prev, lst->next);
+	printf("%3d->%3d | addr->%p | prev->%p | next->%p\n", i, lst->num, lst, lst->prev, lst->next);
 	i++;
 	lst = lst->next;
 	while (lst->next != st->a.head)
 	{
-		printf("%d->%d:addr->%p:prev->%p:next->%p\n", i, lst->num, lst, lst->prev, lst->next);
+		printf("%3d->%3d | addr->%p | prev->%p | next->%p\n", i, lst->num, lst, lst->prev, lst->next);
 		i++;
 		lst = lst->next;
 	}
-	printf("%d->%d:addr->%p:prev->%p:next->%p\n", i, lst->num, lst, lst->prev, lst->next);
+	printf("%3d->%3d | addr->%p | prev->%p | next->%p\n", i, lst->num, lst, lst->prev, lst->next);
 }
 
 int
