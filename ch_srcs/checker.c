@@ -1,23 +1,23 @@
 #include "../includes/checker.h"
 
 int
-	ft_dlstadd_back(t_stacks *st, int num)
+	ft_dlstadd_back(t_stack *stack, int num)
 {
 	t_dlist *new;
 
 	if (!(new = malloc(sizeof(t_dlist))))
 		return (FALSE);
-	st->a.tail->next = new;
-	st->a.head->prev = new;
+	stack->tail->next = new;
+	stack->head->prev = new;
 	new->num = num;
-	new->next = st->a.head;
-	new->prev = st->a.tail;
-	st->a.tail = new;
+	new->next = stack->head;
+	new->prev = stack->tail;
+	stack->tail = new;
 	return (TRUE);
 }
 
 void
-	ft_dlstnew(t_stacks *st, int num)
+	ft_dlstnew(t_stack *stack, int num)
 {
 	t_dlist *lst;
 
@@ -25,8 +25,24 @@ void
 	lst->num = num;
 	lst->next = lst;
 	lst->prev = lst;
-	st->a.head = lst;
-	st->a.tail = lst;
+	stack->head = lst;
+	stack->tail = lst;
+}
+
+int
+	build_stack_b(t_stacks *st)
+{
+	int	i;
+
+	ft_dlstnew(&st->b, -1);
+	i = 2;
+	while (i < st->len)
+	{
+		if (ft_dlstadd_back(&st->b, -1) == FALSE)
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
 }
 
 int
@@ -36,15 +52,17 @@ int
 	int	i;
 
 	num = ft_atoi(av[1]);
-	ft_dlstnew(st, num);
+	ft_dlstnew(&st->a, num);
 	i = 2;
 	while (i < st->len)
 	{
 		num = ft_atoi(av[i]);
-		if (ft_dlstadd_back(st, num) == FALSE)
+		if (ft_dlstadd_back(&st->a, num) == FALSE)
 			return (FALSE);
 		i++;
 	}
+	if (build_stack_b(st) == FALSE)
+		return (FALSE);
 	return (TRUE);
 }
 
@@ -81,13 +99,26 @@ void
 	printf("%3d->%3d | addr->%p | prev->%p | next->%p\n", i, lst->num, lst, lst->prev, lst->next);
 	i++;
 	lst = lst->next;
-	while (lst->next != st->a.head)
+	while (lst != st->a.head)
 	{
 		printf("%3d->%3d | addr->%p | prev->%p | next->%p\n", i, lst->num, lst, lst->prev, lst->next);
 		i++;
 		lst = lst->next;
 	}
+
+	printf("\n*****************\n>>>>>Stack_B<<<<<\n*****************\n");
+	i = 1;
+	lst = st->b.head;
 	printf("%3d->%3d | addr->%p | prev->%p | next->%p\n", i, lst->num, lst, lst->prev, lst->next);
+	i++;
+	lst = lst->next;
+	while (lst != st->b.head)
+	{
+		printf("%3d->%3d | addr->%p | prev->%p | next->%p\n", i, lst->num, lst, lst->prev, lst->next);
+		i++;
+		lst = lst->next;
+	}
+
 }
 
 int
