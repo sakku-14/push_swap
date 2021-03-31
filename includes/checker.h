@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:19:38 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/03/29 12:45:29 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/03/31 13:10:40 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include "../get_next_line/get_next_line.h"
 # include "../libft/libft.h"
 
+# define FALSE -1
+# define TRUE 0
+
 typedef struct	s_dlist
 {
 	int				num;
@@ -27,8 +30,6 @@ typedef struct	s_dlist
 
 typedef struct	s_checker
 {
-	t_dlist	*top;
-	t_dlist	*end;
 	t_dlist	*head;
 	t_dlist	*tail;
 	int		len;

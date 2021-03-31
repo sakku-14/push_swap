@@ -2,52 +2,101 @@
 
 //TODO: improve lstadd_back for dlst
 
-t_dlist	*ft_dlstlast(t_dlist *lst)
+t_dlist
+	*ft_dlstlast(t_checker *checker, t_dlist *lst)
 {
 	if (!lst)
 		return (NULL);
-	while (lst->next)
+	while (lst->next != checker->head)
 		lst = lst->next;
 	return (lst);
 }
 
-void	ft_dlstadd_back(t_dlist **lst, t_dlist *new)
+void
+	ft_dlstadd_back(t_checker *checker, int num)
 {
-	t_dlist *tmp;
+	t_dlist *new;
+	t_dlist *ptr;
 
-	tmp = *lst;
-	if (!new)
-		return ;
-	if (*lst)
-	{
-		tmp = ft_dlstlast(*lst);
-		tmp->next = new;
-	}
-	else
-		*lst = new;
+	new = malloc(sizeof(t_dlist));
+	checker->tail->next = new;
+	ptr = checker->head;
+	ptr->prev = new;
+	new->num = num;
+	new->next = ptr;
+	ptr = ft_dlstlast(checker, ptr);
+	new->prev = checker->tail;
+	checker->tail = new;
 }
 
-t_dlist
-	*ft_dlstnew(int num)
+void
+	ft_dlstnew(t_checker *checker, int num)
 {
 	t_dlist *lst;
 
-	if (!(lst = malloc(sizeof(t_dlist))))
-		return (NULL);
+	lst = malloc(sizeof(t_dlist));
+	lst->num = num;
 	lst->next = lst;
 	lst->prev = lst;
-	lst->num = num;
-	return (lst);
+	checker->head = lst;
+	checker->tail = lst;
 }
 
 void
 	pack_stack(t_checker *checker, char **av)
 {
-	//TODO: pack av to stack
-	int	first_num;
+	int	num;
+	int	i;
 
-	first_num = ft_atoi(av[1]);
-	checker->top = ft_dlstnew(first_num);
+	num = ft_atoi(av[1]);
+	ft_dlstnew(checker, num);
+	i = 2;
+	while (i < checker->len)
+	{
+		num = ft_atoi(av[i]);
+		ft_dlstadd_back(checker, num);
+		i++;
+	}
+}
+
+int
+	check_av(int ac, char **av)
+{
+	int i;
+	int len;
+
+	i = 1;
+	while (i < ac)
+	{
+		len = 0;
+		while (av[i][len])
+		{
+			if (!(ft_isdigit(av[i][len++])))
+				return (FALSE);
+		}
+		i++;
+	}
+	return (TRUE);
+}
+
+void
+	display_stack(t_checker *checker)
+{
+	t_dlist	*lst;
+	int		i;
+
+	i = 1;
+	lst = checker->head;
+	printf("%d->%d:addr->%p:prev->%p:next->%p\n", i, lst->num, lst, lst->prev, lst->next);
+	i++;
+	lst = lst->next;
+	while (lst->next != checker->head)
+	{
+		printf("%d->%d:addr->%p:prev->%p:next->%p\n", i, lst->num, lst, lst->prev, lst->next);
+		i++;
+		lst = lst->next;
+	}
+	printf("%d->%d:addr->%p:prev->%p:next->%p\n", i, lst->num, lst, lst->prev, lst->next);
 }
 
 int
@@ -55,7 +104,9 @@ int
 {
 	t_checker	checker;
 
+	if ((checker.len = ac) <= 1 || check_av(ac, av) == FALSE)
+		return (FALSE);
 	pack_stack(&checker, av);
-	printf("ac:%d,num:%d\n", ac, checker.top->num);
+	display_stack(&checker);//for debug
 	return (0);
 }
