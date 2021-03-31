@@ -1,7 +1,5 @@
 #include "../includes/checker.h"
-
-//TODO: improve lstadd_back for dlst
-
+/*
 t_dlist
 	*ft_dlstlast(t_checker *checker, t_dlist *lst)
 {
@@ -11,22 +9,21 @@ t_dlist
 		lst = lst->next;
 	return (lst);
 }
-
-void
+*/
+int
 	ft_dlstadd_back(t_checker *checker, int num)
 {
 	t_dlist *new;
-	t_dlist *ptr;
 
-	new = malloc(sizeof(t_dlist));
+	if (!(new = malloc(sizeof(t_dlist))))
+		return (FALSE);
 	checker->tail->next = new;
-	ptr = checker->head;
-	ptr->prev = new;
+	checker->head->prev = new;
 	new->num = num;
-	new->next = ptr;
-	ptr = ft_dlstlast(checker, ptr);
+	new->next = checker->head;
 	new->prev = checker->tail;
 	checker->tail = new;
+	return (TRUE);
 }
 
 void
@@ -42,7 +39,7 @@ void
 	checker->tail = lst;
 }
 
-void
+int
 	pack_stack(t_checker *checker, char **av)
 {
 	int	num;
@@ -54,9 +51,11 @@ void
 	while (i < checker->len)
 	{
 		num = ft_atoi(av[i]);
-		ft_dlstadd_back(checker, num);
+		if (ft_dlstadd_back(checker, num) == FALSE)
+			return (FALSE);
 		i++;
 	}
+	return (TRUE);
 }
 
 int
@@ -106,7 +105,8 @@ int
 
 	if ((checker.len = ac) <= 1 || check_av(ac, av) == FALSE)
 		return (FALSE);
-	pack_stack(&checker, av);
+	if (pack_stack(&checker, av) == FALSE)
+		return (FALSE);
 	display_stack(&checker);//for debug
 	return (0);
 }
