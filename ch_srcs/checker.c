@@ -1,33 +1,23 @@
 #include "../includes/checker.h"
-/*
-t_dlist
-	*ft_dlstlast(t_checker *checker, t_dlist *lst)
-{
-	if (!lst)
-		return (NULL);
-	while (lst->next != checker->head)
-		lst = lst->next;
-	return (lst);
-}
-*/
+
 int
-	ft_dlstadd_back(t_checker *checker, int num)
+	ft_dlstadd_back(t_stacks *st, int num)
 {
 	t_dlist *new;
 
 	if (!(new = malloc(sizeof(t_dlist))))
 		return (FALSE);
-	checker->tail->next = new;
-	checker->head->prev = new;
+	st->a.tail->next = new;
+	st->a.head->prev = new;
 	new->num = num;
-	new->next = checker->head;
-	new->prev = checker->tail;
-	checker->tail = new;
+	new->next = st->a.head;
+	new->prev = st->a.tail;
+	st->a.tail = new;
 	return (TRUE);
 }
 
 void
-	ft_dlstnew(t_checker *checker, int num)
+	ft_dlstnew(t_stacks *st, int num)
 {
 	t_dlist *lst;
 
@@ -35,23 +25,23 @@ void
 	lst->num = num;
 	lst->next = lst;
 	lst->prev = lst;
-	checker->head = lst;
-	checker->tail = lst;
+	st->a.head = lst;
+	st->a.tail = lst;
 }
 
 int
-	pack_stack(t_checker *checker, char **av)
+	pack_stack(t_stacks *st, char **av)
 {
 	int	num;
 	int	i;
 
 	num = ft_atoi(av[1]);
-	ft_dlstnew(checker, num);
+	ft_dlstnew(st, num);
 	i = 2;
-	while (i < checker->len)
+	while (i < st->len)
 	{
 		num = ft_atoi(av[i]);
-		if (ft_dlstadd_back(checker, num) == FALSE)
+		if (ft_dlstadd_back(st, num) == FALSE)
 			return (FALSE);
 		i++;
 	}
@@ -79,17 +69,17 @@ int
 }
 
 void
-	display_stack(t_checker *checker)
+	display_stack(t_stacks *st)
 {
 	t_dlist	*lst;
 	int		i;
 
 	i = 1;
-	lst = checker->head;
+	lst = st->a.head;
 	printf("%d->%d:addr->%p:prev->%p:next->%p\n", i, lst->num, lst, lst->prev, lst->next);
 	i++;
 	lst = lst->next;
-	while (lst->next != checker->head)
+	while (lst->next != st->a.head)
 	{
 		printf("%d->%d:addr->%p:prev->%p:next->%p\n", i, lst->num, lst, lst->prev, lst->next);
 		i++;
@@ -101,12 +91,12 @@ void
 int
 	main(int ac, char **av)
 {
-	t_checker	checker;
+	t_stacks	st;
 
-	if ((checker.len = ac) <= 1 || check_av(ac, av) == FALSE)
+	if ((st.len = ac) <= 1 || check_av(ac, av) == FALSE)
 		return (FALSE);
-	if (pack_stack(&checker, av) == FALSE)
+	if (pack_stack(&st, av) == FALSE)
 		return (FALSE);
-	display_stack(&checker);//for debug
+	display_stack(&st);//for debug
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:19:38 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/03/31 13:10:40 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/01 07:47:29 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,17 @@ typedef struct	s_dlist
 	struct s_dlist	*next;
 }				t_dlist;
 
-typedef struct	s_checker
+typedef struct	s_stack
 {
 	t_dlist	*head;
 	t_dlist	*tail;
+}				t_stack;
+
+typedef struct	s_stacks
+{
+	t_stack	a;
+	t_stack	b;
 	int		len;
-}				t_checker;
+}				t_stacks;
 
 #endif
