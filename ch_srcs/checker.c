@@ -1,6 +1,20 @@
 #include "../includes/checker.h"
 
 int
+	print_error(void)
+{
+	write(1, "Error\n", 6);
+	return (FALSE);
+}
+
+int
+	exit_error(void)
+{
+	write(1, "Error\n", 6);
+	exit (-1);
+}
+
+int
 	ft_dlstadd_back(t_stack *stack, int num, int exist)
 {
 	t_dlist *new;
@@ -82,7 +96,7 @@ int
 		while (av[i][len])
 		{
 			if (!(ft_isdigit(av[i][len++])))
-				return (FALSE);
+				return (print_error());
 		}
 		i++;
 	}
@@ -379,6 +393,8 @@ int
 	int		num;
 	t_dlist	*ptr;
 
+	if (st->len == 1)
+		return (TRUE);
 	num = st->a.head->num;
 	ptr = st->a.head->next;
 	while (ptr != st->a.head)
@@ -406,12 +422,13 @@ int
 {
 	t_stacks	st;
 
-	if ((st.len = ac) <= 1 || check_av(ac, av) == FALSE)
-		return (FALSE);
+	if (ac == 1 || check_av(ac, av) == FALSE)
+		exit_error();
+	st.len = ac - 1;
 	if (pack_stack(&st, av) == FALSE)
-		return (FALSE);
+		exit_error();
 	if (get_do_ord(&st) == FALSE)
-		return (FALSE);
+		exit_error();
 	if (check_stack(&st) == TRUE)
 		write(1, "OK\n", 3);
 	else
