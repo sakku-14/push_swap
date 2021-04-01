@@ -374,6 +374,34 @@ int
 }
 
 int
+	check_stack_a(t_stacks *st)
+{
+	int		num;
+	t_dlist	*ptr;
+
+	num = st->a.head->num;
+	ptr = st->a.head->next;
+	while (ptr != st->a.head)
+	{
+		if (num > ptr->num)
+			return (FALSE);
+		num = ptr->num;
+		ptr = ptr->next;
+	}
+	return (TRUE);
+}
+
+int
+	check_stack(t_stacks *st)
+{
+	if (st->b.head->exist == 1)
+		return (FALSE);
+	if (check_stack_a(st) == FALSE)
+		return (FALSE);
+	return (TRUE);
+}
+
+int
 	main(int ac, char **av)
 {
 	t_stacks	st;
@@ -384,7 +412,9 @@ int
 		return (FALSE);
 	if (get_do_ord(&st) == FALSE)
 		return (FALSE);
-	display_stack(&st, "result");
-//	check_stack(&st);
+	if (check_stack(&st) == TRUE)
+		write(1, "OK\n", 3);
+	else
+		write(1, "KO\n", 3);
 	exit (0);
 }
