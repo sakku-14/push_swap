@@ -258,12 +258,17 @@ void
 void
 	rotate(t_stack *stack)
 {
-	stack->head = stack->head->next;
-	while (stack->head->exist != 1)
-		stack->head = stack->head->next;
-	stack->tail = stack->tail->next;
-	while (stack->tail->exist != 1)
-		stack->tail = stack->tail->next;
+	int tmp;
+	t_dlist *ptr;
+
+	tmp = stack->head->num;
+	ptr = stack->head;
+	while (ptr != stack->tail)
+	{
+		ptr->num = ptr->next->num;
+		ptr = ptr->next;
+	}
+	ptr->num = tmp;
 }
 
 void
@@ -276,12 +281,17 @@ void
 void
 	rev_rotate(t_stack *stack)
 {
-	stack->head = stack->head->prev;
-	while (stack->head->exist != 1)
-		stack->head = stack->head->prev;
-	stack->tail = stack->tail->prev;
-	while (stack->head->exist != 1)
-		stack->head = stack->head->prev;
+	int tmp;
+	t_dlist *ptr;
+
+	tmp = stack->tail->num;
+	ptr = stack->tail;
+	while (ptr != stack->head)
+	{
+		ptr->num = ptr->prev->num;
+		ptr = ptr->prev;
+	}
+	ptr->num = tmp;
 }
 
 void
@@ -297,11 +307,11 @@ void
 	display_stack(st, "first");//for debug
 //	swap(&st->a);
 //	w_swap(st);
-	push(st, 'b');
+//	push(st, 'b');
 //	rotate(&st->a);
 //	w_rotate(st);
-	rev_rotate(&st->a);
-	display_stack(st, "after rev_rotate");//for debug
+//	rev_rotate(&st->a);
+//	display_stack(st, "after rev_rotate");//for debug
 //	w_rev_rotate(st);
 }
 
