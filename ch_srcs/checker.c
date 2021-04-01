@@ -301,18 +301,76 @@ void
 	rev_rotate(&st->b);
 }
 
-void
-	act(t_stacks *st)
+int
+	check_order(char *buf)
 {
-	display_stack(st, "first");//for debug
-//	swap(&st->a);
-//	w_swap(st);
-//	push(st, 'b');
-//	rotate(&st->a);
-//	w_rotate(st);
-//	rev_rotate(&st->a);
-//	display_stack(st, "after rev_rotate");//for debug
-//	w_rev_rotate(st);
+	if (ft_strlen(buf) == 3)
+	{
+		if (ft_strnstr(buf, "sa\n", 3) || ft_strnstr(buf, "sb\n", 3))
+			return (TRUE);
+		else if (ft_strnstr(buf, "ss\n", 3))
+			return (TRUE);
+		else if (ft_strnstr(buf, "pa\n", 3) || ft_strnstr(buf, "pb\n", 3))
+			return (TRUE);
+		else if (ft_strnstr(buf, "ra\n", 3) || ft_strnstr(buf, "rb\n", 3))
+			return (TRUE);
+		else if (ft_strnstr(buf, "rr\n", 3))
+			return (TRUE);
+	}
+	else if (ft_strlen(buf) == 4)
+	{
+		if (ft_strnstr(buf, "rra\n", 4) || ft_strnstr(buf, "rrb", 4))
+			return (TRUE);
+		else if (ft_strnstr(buf, "rrr\n", 4))
+			return (TRUE);
+	}
+	return (FALSE);
+}
+
+void
+	do_order(t_stacks *st, char *buf)
+{
+	if (ft_strnstr(buf, "sa\n", 3))
+		swap(&st->a);
+	else if (ft_strnstr(buf, "sb\n", 3))
+		swap(&st->b);
+	else if (ft_strnstr(buf, "ss\n", 3))
+		w_swap(st);
+	else if (ft_strnstr(buf, "pa\n", 3))
+		push(st, 'a');
+	else if (ft_strnstr(buf, "pb\n", 3))
+		push(st, 'b');
+	else if (ft_strnstr(buf, "ra\n", 3))
+		rotate(&st->a);
+	else if (ft_strnstr(buf, "rb\n", 3))
+		rotate(&st->b);
+	else if (ft_strnstr(buf, "rr\n", 3))
+		w_rotate(st);
+	else if (ft_strnstr(buf, "rra\n", 4))
+		rev_rotate(&st->a);   
+	else if (ft_strnstr(buf, "rrb\n", 4))
+		rev_rotate(&st->b);   
+	else if (ft_strnstr(buf, "rrr\n", 4))
+		w_rev_rotate(st);
+}
+
+int
+	get_ord_do_ord(t_stacks *st)
+{
+	int ret;
+	char buf[100000];
+
+	ft_bzero(buf, 100000);
+	while ((ret = read(0, buf, 100000)) != 0)
+	{
+		if (ret < 0)
+			return (FALSE);
+		if (check_order(buf) == FALSE)
+			return (FALSE);
+		do_order(st, buf);
+		ft_bzero(buf, 100000);
+	}
+	return (TRUE);
 }
 
 int
@@ -324,6 +382,9 @@ int
 		return (FALSE);
 	if (pack_stack(&st, av) == FALSE)
 		return (FALSE);
-	act(&st);
-	return (0);
+	if (get_ord_do_ord(&st) == FALSE)
+		return (FALSE);
+	display_stack(&st, "result");
+//	check_stack(&st);
+	exit (0);
 }
