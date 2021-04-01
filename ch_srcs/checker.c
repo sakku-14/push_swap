@@ -424,11 +424,12 @@ int
 
 	if (ac == 1 || check_av(ac, av) == FALSE)
 		exit_error();
-	st.len = ac - 1;
+	st.len = ac;
 	if (pack_stack(&st, av) == FALSE)
 		exit_error();
 	if (get_do_ord(&st) == FALSE)
 		exit_error();
+	display_stack(&st, "result");
 	if (check_stack(&st) == TRUE)
 		write(1, "OK\n", 3);
 	else
