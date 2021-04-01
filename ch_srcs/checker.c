@@ -355,7 +355,7 @@ void
 }
 
 int
-	get_ord_do_ord(t_stacks *st)
+	get_do_ord(t_stacks *st)
 {
 	int ret;
 	char buf[100000];
@@ -382,7 +382,7 @@ int
 		return (FALSE);
 	if (pack_stack(&st, av) == FALSE)
 		return (FALSE);
-	if (get_ord_do_ord(&st) == FALSE)
+	if (get_do_ord(&st) == FALSE)
 		return (FALSE);
 	display_stack(&st, "result");
 //	check_stack(&st);
