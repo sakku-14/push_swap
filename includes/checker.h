@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:19:38 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/04/01 07:47:29 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/01 13:43:15 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 typedef struct	s_dlist
 {
 	int				num;
+	int				exist;// exist->1, not->0
 	struct s_dlist	*prev;
 	struct s_dlist	*next;
 }				t_dlist;

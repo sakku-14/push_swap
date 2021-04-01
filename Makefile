@@ -6,7 +6,7 @@
 #    By: ysakuma <ysakuma@student.42tokyo.j>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/09 12:55:15 by ysakuma           #+#    #+#              #
-#    Updated: 2021/03/19 12:57:50 by ysakuma          ###   ########.fr        #
+#    Updated: 2021/04/01 13:23:42 by ysakuma          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			= ${PS} ${CH}
 PS				= push_swap
 CH				= checker
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -g -Wall -Wextra -Werror
 RM				= rm -f
 CHECKSRCDIR		= ./ch_srcs/
 PSSRCDIR		= ./ps_srcs/
