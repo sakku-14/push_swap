@@ -1,4 +1,4 @@
-#include "../includes/checker.h"
+#include "../includes/push_swap.h"
 
 int
 	print_error(void)
@@ -316,78 +316,6 @@ void
 }
 
 int
-	check_order(char *buf)
-{
-	if (ft_strlen(buf) == 3)
-	{
-		if (ft_strnstr(buf, "sa\n", 3) || ft_strnstr(buf, "sb\n", 3))
-			return (TRUE);
-		else if (ft_strnstr(buf, "ss\n", 3))
-			return (TRUE);
-		else if (ft_strnstr(buf, "pa\n", 3) || ft_strnstr(buf, "pb\n", 3))
-			return (TRUE);
-		else if (ft_strnstr(buf, "ra\n", 3) || ft_strnstr(buf, "rb\n", 3))
-			return (TRUE);
-		else if (ft_strnstr(buf, "rr\n", 3))
-			return (TRUE);
-	}
-	else if (ft_strlen(buf) == 4)
-	{
-		if (ft_strnstr(buf, "rra\n", 4) || ft_strnstr(buf, "rrb", 4))
-			return (TRUE);
-		else if (ft_strnstr(buf, "rrr\n", 4))
-			return (TRUE);
-	}
-	return (FALSE);
-}
-
-void
-	do_order(t_stacks *st, char *buf)
-{
-	if (ft_strnstr(buf, "sa\n", 3))
-		swap(&st->a);
-	else if (ft_strnstr(buf, "sb\n", 3))
-		swap(&st->b);
-	else if (ft_strnstr(buf, "ss\n", 3))
-		w_swap(st);
-	else if (ft_strnstr(buf, "pa\n", 3))
-		push(st, 'a');
-	else if (ft_strnstr(buf, "pb\n", 3))
-		push(st, 'b');
-	else if (ft_strnstr(buf, "ra\n", 3))
-		rotate(&st->a);
-	else if (ft_strnstr(buf, "rb\n", 3))
-		rotate(&st->b);
-	else if (ft_strnstr(buf, "rr\n", 3))
-		w_rotate(st);
-	else if (ft_strnstr(buf, "rra\n", 4))
-		rev_rotate(&st->a);   
-	else if (ft_strnstr(buf, "rrb\n", 4))
-		rev_rotate(&st->b);   
-	else if (ft_strnstr(buf, "rrr\n", 4))
-		w_rev_rotate(st);
-}
-
-int
-	get_do_ord(t_stacks *st)
-{
-	int ret;
-	char buf[100000];
-
-	ft_bzero(buf, 100000);
-	while ((ret = read(0, buf, 100000)) != 0)
-	{
-		if (ret < 0)
-			return (FALSE);
-		if (check_order(buf) == FALSE)
-			return (FALSE);
-		do_order(st, buf);
-		ft_bzero(buf, 100000);
-	}
-	return (TRUE);
-}
-
-int
 	check_stack_a(t_stacks *st)
 {
 	int		num;
@@ -417,6 +345,48 @@ int
 	return (TRUE);
 }
 
+void
+	pack_array(t_stacks *st)
+{
+	int		i;
+	t_dlist	*ptr;
+
+	i = 0;
+	ptr = st->a.head;
+	while (ptr != st->a.tail)
+	{
+		st->nums[i++] = ptr->num;
+		ptr = ptr->next;
+	}
+	st->nums[i] = ptr->num;
+}
+
+//FOR debug
+void
+	display_array(int *x, int len)
+{
+	int i = 0;
+	while (i < len)
+		printf("%d-", x[i++]);
+	printf("\n");
+}
+
+void
+	sort_array(int *nums, int len)
+{
+	display_array(nums, len - 1);
+}
+
+int
+	pack_sort_array(t_stacks *st)
+{
+	if (!(st->nums = malloc(sizeof(int) * (st->len))))
+		return (FALSE);
+	pack_array(st);
+	sort_array(st->nums, st->len);
+	return (TRUE);
+}
+
 int
 	main(int ac, char **av)
 {
@@ -424,14 +394,13 @@ int
 
 	if (ac == 1 || check_av(ac, av) == FALSE)
 		exit_error();
-	st.len = ac - 1;
+	st.len = ac;
 	if (pack_stack(&st, av) == FALSE)
 		exit_error();
-	if (get_do_ord(&st) == FALSE)
+	//TODO:配列にスタックAを格納・ソート
+	if (pack_sort_array(&st) == FALSE)
 		exit_error();
-	if (check_stack(&st) == TRUE)
-		write(1, "OK\n", 3);
-	else
-		write(1, "KO\n", 3);
+	//TODO:クイックソート実装
+	display_stack(&st, "result");
 	exit (0);
 }
