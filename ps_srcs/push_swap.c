@@ -355,9 +355,8 @@ void
 	ptr = st->a.head;
 	while (ptr != st->a.tail)
 	{
-		st->nums[i] = ptr->num;
+		st->nums[i++] = ptr->num;
 		ptr = ptr->next;
-		i++;
 	}
 	st->nums[i] = ptr->num;
 }
