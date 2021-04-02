@@ -52,7 +52,7 @@ int
 
 	ft_dlstnew(&st->b, -1, 0);
 	i = 2;
-	while (i < st->len)
+	while (i < st->len + 1)
 	{
 		if (ft_dlstadd_back(&st->b, -1, 0) == FALSE)
 			return (FALSE);
@@ -71,7 +71,7 @@ int
 	num = ft_atoi(av[1]);
 	ft_dlstnew(&st->a, num, 1);
 	i = 2;
-	while (i < st->len)
+	while (i < st->len + 1)
 	{
 		num = ft_atoi(av[i]);
 		if (ft_dlstadd_back(&st->a, num, 1) == FALSE)
@@ -355,8 +355,9 @@ void
 	ptr = st->a.head;
 	while (ptr != st->a.tail)
 	{
-		st->nums[i++] = ptr->num;
+		st->nums[i] = ptr->num;
 		ptr = ptr->next;
+		i++;
 	}
 	st->nums[i] = ptr->num;
 }
@@ -372,9 +373,58 @@ void
 }
 
 void
+	swap_num(int *nums, int l, int r)
+{
+	int tmp;
+
+	tmp = nums[l];
+	nums[l] = nums[r];
+	nums[r] = tmp;
+}
+
+int
+	swap_array(int *nums, int pivot, int *l, int *r)
+{
+	while (nums[*l] < pivot)
+		(*l)++;
+	while (nums[*r] > pivot)
+		(*r)--;
+	if (*l >= *r)
+		return (FALSE);
+	swap_num(nums, *l, *r);
+	return (TRUE);
+}
+
+void
+	q_sort_array(int *nums, int left, int right)
+{
+	int pivot;
+	int l;
+	int r;
+
+	l = left;
+	r = right;
+	pivot = nums[l];
+	while (1)
+	{
+		if (swap_array(nums, pivot, &l, &r) == FALSE)
+			break ;
+		l++;
+		r--;
+	}
+	display_array(nums, 6);
+	if (left < l - 1)
+		q_sort_array(nums, left, l - 1);
+	if (right > r + 1)
+		q_sort_array(nums, r + 1, right);
+}
+
+void
 	sort_array(int *nums, int len)
 {
-	display_array(nums, len - 1);
+	display_array(nums, len);
+	q_sort_array(nums, 0, len - 1);
+	display_array(nums, len);
 }
 
 int
@@ -394,7 +444,7 @@ int
 
 	if (ac == 1 || check_av(ac, av) == FALSE)
 		exit_error();
-	st.len = ac;
+	st.len = ac - 1;
 	if (pack_stack(&st, av) == FALSE)
 		exit_error();
 	//TODO:配列にスタックAを格納・ソート

@@ -52,7 +52,7 @@ int
 
 	ft_dlstnew(&st->b, -1, 0);
 	i = 2;
-	while (i < st->len)
+	while (i < st->len + 1)
 	{
 		if (ft_dlstadd_back(&st->b, -1, 0) == FALSE)
 			return (FALSE);
@@ -71,7 +71,7 @@ int
 	num = ft_atoi(av[1]);
 	ft_dlstnew(&st->a, num, 1);
 	i = 2;
-	while (i < st->len)
+	while (i < st->len + 1)
 	{
 		num = ft_atoi(av[i]);
 		if (ft_dlstadd_back(&st->a, num, 1) == FALSE)
@@ -424,7 +424,7 @@ int
 
 	if (ac == 1 || check_av(ac, av) == FALSE)
 		exit_error();
-	st.len = ac;
+	st.len = ac - 1;
 	if (pack_stack(&st, av) == FALSE)
 		exit_error();
 	if (get_do_ord(&st) == FALSE)
