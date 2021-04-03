@@ -420,9 +420,9 @@ void
 void
 	sort_array(int *nums, int len)
 {
-	display_array(nums, len);
+//	display_array(nums, len);
 	q_sort_array(nums, 0, len - 1);
-	display_array(nums, len);
+//	display_array(nums, len);
 }
 
 int
@@ -460,6 +460,8 @@ int
 	st.len = ac - 1;
 	if (pack_stack(&st, av) == FALSE)
 		exit_error();
+	if (check_stack(&st) == TRUE)
+		exit (0);
 	if (pack_sort_array(&st) == FALSE)
 		exit_error();
 	//TODO:クイックソート実装
