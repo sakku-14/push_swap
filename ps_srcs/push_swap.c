@@ -411,7 +411,6 @@ void
 		l++;
 		r--;
 	}
-	display_array(nums, 6);
 	if (left < l - 1)
 		q_sort_array(nums, left, l - 1);
 	if (right > r + 1)
@@ -436,6 +435,21 @@ int
 	return (TRUE);
 }
 
+void
+	attach_tail(t_stacks *st)
+{
+	push(st, 'a');
+	rotate(&st->a);
+}
+
+//for check act
+void
+	check_act(t_stacks *st)
+{
+	attach_tail(st);
+	attach_tail(st);
+}
+
 int
 	main(int ac, char **av)
 {
@@ -446,10 +460,11 @@ int
 	st.len = ac - 1;
 	if (pack_stack(&st, av) == FALSE)
 		exit_error();
-	//TODO:配列にスタックAを格納・ソート
 	if (pack_sort_array(&st) == FALSE)
 		exit_error();
 	//TODO:クイックソート実装
+	//TODO:クイックソートで使うスタック動作関数実装し、動作確認
+	check_act(&st);
 	display_stack(&st, "result");
 	exit (0);
 }
