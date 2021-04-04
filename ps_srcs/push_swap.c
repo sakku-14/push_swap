@@ -448,6 +448,7 @@ void
 {
 	attach_tail(st);
 	attach_tail(st);
+	//TODO: スタックの先頭がソート済スタックの待ちの数かどうか確認する関数
 }
 
 int
