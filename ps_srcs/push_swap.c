@@ -422,7 +422,7 @@ void
 {
 //	display_array(nums, len);
 	q_sort_array(nums, 0, len - 1);
-//	display_array(nums, len);
+	display_array(nums, len);
 }
 
 int
@@ -451,6 +451,30 @@ void
 	//TODO: スタックの先頭がソート済スタックの待ちの数かどうか確認する関数
 }
 
+void
+	q_sort_stack_a(t_stacks *st)
+{
+	int		pivot;
+	int		counter;
+
+	pivot = st->nums[(st->len - 1) / 2];
+	counter = 0;
+	while (counter < st->len)
+	{
+		if (st->a.head->num <= pivot)
+			push(st, 'b');
+		else
+			rotate(&(st->a));
+		counter++;
+	}
+}
+
+void
+	q_sort_stack(t_stacks *st)
+{
+	q_sort_stack_a(st);// first act for q_sort
+}
+
 int
 	main(int ac, char **av)
 {
@@ -465,9 +489,11 @@ int
 		exit (0);
 	if (pack_sort_array(&st) == FALSE)
 		exit_error();
+	display_stack(&st, "origin");
 	//TODO:クイックソート実装
+	q_sort_stack(&st);
 	//TODO:クイックソートで使うスタック動作関数実装し、動作確認
-	check_act(&st);
+//	check_act(&st);
 	display_stack(&st, "result");
 	exit (0);
 }
