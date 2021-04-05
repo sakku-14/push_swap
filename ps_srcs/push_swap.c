@@ -473,6 +473,20 @@ void
 	q_sort_stack(t_stacks *st)
 {
 	q_sort_stack_a(st);// first act for q_sort
+	while (check_stack(st) != TRUE)
+	{
+		//TODO: ソート終了してない時の処理
+		if (st->b.head->exist != 1)
+		{
+			//TODO: s_bが空の時
+		}
+		else
+		{
+			//TODO: s_bに残ってる時
+		}
+		printf("not sorted yet\n");
+		break;
+	}
 }
 
 int
