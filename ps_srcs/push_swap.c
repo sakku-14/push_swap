@@ -469,6 +469,37 @@ void
 	}
 }
 
+int
+	set_pivot(t_stack *b)
+{
+	int		len;
+	int		nums[262144];
+	t_dlist	*ptr;
+
+	len = 0;
+	ptr = b->head;
+	while (ptr != b->tail)
+	{
+		nums[len] = ptr->num;
+		ptr = ptr->next;
+		len++;
+	}
+	nums[len] = ptr->num;
+	len++;
+	q_sort_array(nums, 0, len - 1);
+	return (nums[(len - 1) / 2]);
+}
+
+void
+	q_sort_stack_b(t_stacks *st)
+{
+	int		pivot;
+//	int		counter;
+
+	pivot = set_pivot(&(st->b));
+	printf("pivot:%d\n", pivot);
+}
+
 void
 	q_sort_stack(t_stacks *st)
 {
@@ -483,6 +514,7 @@ void
 		else
 		{
 			//TODO: s_bに残ってる時
+			q_sort_stack_b(st);
 		}
 		printf("not sorted yet\n");
 		break;
