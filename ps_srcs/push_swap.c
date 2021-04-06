@@ -432,6 +432,7 @@ int
 		return (FALSE);
 	pack_array(st);
 	sort_array(st->nums, st->len);
+	st->n_ptr = 0;
 	return (TRUE);
 }
 
@@ -508,6 +509,44 @@ int
 	return (TRUE);
 }
 
+int
+	wated_num(t_stacks *st, char *flag)
+{
+	if (st->nums[st->n_ptr] == st->a.head->num)
+	{
+		*flag = 'a';
+		return (TRUE);
+	}
+	else if (st->nums[st->n_ptr] == st->b.head->num)
+	{
+		*flag = 'b';
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
+int
+	set_sorted(t_stacks *st)
+{
+	char	flag;
+	int		counter;
+
+	counter = 0;
+	while (wated_num(st, &flag) == TRUE)
+	{
+		if (flag == 'a')
+			rotate(&(st->a));
+		else
+		{
+			attach_tail(st);
+			counter++;
+		}
+		flag = '\0';
+		st->n_ptr++;
+	}
+	return (counter);
+}
+
 void
 	q_sort_stack_b(t_stacks *st)
 {
@@ -517,12 +556,13 @@ void
 	pivot = set_pivot(&(st->b), &counter);
 	while (counter > 0)
 	{
-		if (all_under_pivot(&(st->b), pivot) == TRUE)//pivotより大きい値が無ければブレイク
-			break;
+		counter -= set_sorted(st);
 		if (st->b.head->num > pivot)
 			push(st, 'a');
 		else
 			rotate(&(st->b));
+		if (all_under_pivot(&(st->b), pivot) == TRUE)//pivotより大きい値が無ければブレイク
+			break;
 		counter--;
 	}
 }
@@ -533,10 +573,13 @@ void
 	q_sort_stack_a(st);// first act for q_sort
 	while (check_stack(st) != TRUE)
 	{
+		set_sorted(st);
 		//TODO: ソート終了してない時の処理
 		if (st->b.head->exist != 1)
 		{
 			//TODO: s_bが空の時
+			printf("here\n");
+			break;
 		}
 		else
 		{
@@ -545,9 +588,9 @@ void
 	display_stack(st, "q_sort_b");
 		}
 		//s_bが要素一つになったらループ抜ける処理（一時的処理）
-		if (st->b.head == st->b.tail)
-			break;
-		printf("not sorted yet\n");
+//		if (st->b.head == st->b.tail)
+//			break;
+//		printf("not sorted yet\n");
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:19:38 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/04/02 00:11:45 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/06 17:29:42 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct	s_stacks
 	t_stack	a;
 	t_stack	b;
 	int		*nums;
+	int		n_ptr;
 	int		len;
 }				t_stacks;
 
