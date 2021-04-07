@@ -420,7 +420,6 @@ void
 void
 	sort_array(int *nums, int len)
 {
-//	display_array(nums, len);
 	q_sort_array(nums, 0, len - 1);
 	display_array(nums, len);
 }
@@ -453,7 +452,7 @@ void
 }
 
 void
-	q_sort_stack_a(t_stacks *st)
+	q_sort_stack_first(t_stacks *st)
 {
 	int		pivot;
 	int		counter;
@@ -471,7 +470,29 @@ void
 }
 
 int
-	set_pivot(t_stack *b, int *counter)
+	set_pivot_a(t_stacks *st, int *counter)
+{
+	int		len;
+	int		nums[262144];
+	t_dlist	*ptr;
+
+	len = 0;
+	ptr = st->a.head;
+	while (ptr != st->a.tail && ptr->next->num != st->nums[0])
+	{
+		nums[len] = ptr->num;
+		ptr = ptr->next;
+		len++;
+	}
+	nums[len] = ptr->num;
+	len++;
+	*counter = len;
+	q_sort_array(nums, 0, len - 1);
+	return (nums[(len - 1) / 2]);
+}
+
+int
+	set_pivot_b(t_stack *b, int *counter)
 {
 	int		len;
 	int		nums[262144];
@@ -512,6 +533,8 @@ int
 int
 	wated_num(t_stacks *st, char *flag)
 {
+	display_stack(st, "inside of wated_num");
+	printf("st->n_ptr:%d, st->nums[st->n_ptr]:%d, st->a.head->num:%d, st->b.head->num:%d\n", st->n_ptr,st->nums[st->n_ptr], st->a.head->num, st->b.head->num);
 	if (st->nums[st->n_ptr] == st->a.head->num)
 	{
 		*flag = 'a';
@@ -532,8 +555,9 @@ int
 	int		counter;
 
 	counter = 0;
-	while (wated_num(st, &flag) == TRUE)
+	while (wated_num(st, &flag) == TRUE && check_stack(st) == FALSE)
 	{
+	display_stack(st, "inside of set_sorted");
 		if (flag == 'a')
 			rotate(&(st->a));
 		else
@@ -553,14 +577,17 @@ void
 	int		pivot;
 	int		counter;
 
-	pivot = set_pivot(&(st->b), &counter);
-	while (counter > 0)
+	pivot = set_pivot_b(&(st->b), &counter);
+	while (counter > 0 && check_stack(st) == FALSE)
 	{
 		counter -= set_sorted(st);
+		if (check_stack(st) == TRUE)
+			break;
 		if (st->b.head->num > pivot)
 			push(st, 'a');
 		else
 			rotate(&(st->b));
+	display_stack(st, "inside of q_sort_b");
 		if (all_under_pivot(&(st->b), pivot) == TRUE)//pivotより大きい値が無ければブレイク
 			break;
 		counter--;
@@ -568,18 +595,37 @@ void
 }
 
 void
+	q_sort_stack_a(t_stacks *st)
+{
+	int		pivot;
+	int		counter;
+
+	pivot = set_pivot_a(st, &counter);
+	while (counter > 0 && check_stack(st) == FALSE)
+	{
+		counter -= set_sorted(st);
+		if (check_stack(st) == TRUE) //<-ここで止まった！！！！！！
+			break;
+		push(st, 'b');
+		counter--;
+	}
+}
+
+void
 	q_sort_stack(t_stacks *st)
 {
-	q_sort_stack_a(st);// first act for q_sort
-	while (check_stack(st) != TRUE)
+	q_sort_stack_first(st);// first act for q_sort
+	while (check_stack(st) == FALSE)
 	{
 		set_sorted(st);
+		if (check_stack(st) == TRUE)
+			break;
 		//TODO: ソート終了してない時の処理
-		if (st->b.head->exist != 1)
+		if (st->b.head->exist == 0)
 		{
 			//TODO: s_bが空の時
+			q_sort_stack_a(st);
 			printf("here\n");
-			break;
 		}
 		else
 		{
@@ -587,10 +633,13 @@ void
 			q_sort_stack_b(st);
 	display_stack(st, "q_sort_b");
 		}
+//	for_debug
+//		if (st->n_ptr == 7)
+//			break;
 		//s_bが要素一つになったらループ抜ける処理（一時的処理）
 //		if (st->b.head == st->b.tail)
+//			attach_tail(st);
 //			break;
-//		printf("not sorted yet\n");
 	}
 }
 
