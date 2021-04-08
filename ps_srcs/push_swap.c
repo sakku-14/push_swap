@@ -648,6 +648,7 @@ int
 {
 	t_stacks	st;
 
+	//TODO: マイナス対応→ft_isdigit
 	if (ac == 1 || check_av(ac, av) == FALSE)
 		exit_error();
 	st.len = ac - 1;
