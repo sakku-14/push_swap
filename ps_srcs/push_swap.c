@@ -95,6 +95,8 @@ int
 		len = 0;
 		while (av[i][len])
 		{
+			if (av[i][len] == '-' || av[i][len] == '+')
+				len++;
 			if (!(ft_isdigit(av[i][len++])))
 				return (print_error());
 		}
@@ -421,7 +423,7 @@ void
 	sort_array(int *nums, int len)
 {
 	q_sort_array(nums, 0, len - 1);
-	display_array(nums, len);
+//	display_array(nums, len);
 }
 
 int
@@ -454,7 +456,7 @@ void
 int
 	wated_num(t_stacks *st, char *flag)
 {
-	printf("st->n_ptr:%d, st->nums[st->n_ptr]:%d, st->a.head->num:%d, st->b.head->num:%d\n", st->n_ptr,st->nums[st->n_ptr], st->a.head->num, st->b.head->num);
+//	printf("st->n_ptr:%d, st->nums[st->n_ptr]:%d, st->a.head->num:%d, st->b.head->num:%d\n", st->n_ptr,st->nums[st->n_ptr], st->a.head->num, st->b.head->num);
 	if (st->nums[st->n_ptr] == st->a.head->num)
 	{
 		*flag = 'a';
@@ -478,10 +480,14 @@ int
 	while (wated_num(st, &flag) == TRUE)
 	{
 		if (flag == 'a')
+		{
 			rotate(&(st->a));
+			write(1, "ra\n", 3);
+		}
 		else
 		{
 			attach_tail(st);
+			write(1, "pa\nra\n", 6);
 			counter++;
 		}
 		flag = '\0';
@@ -501,9 +507,15 @@ void
 	while (counter < st->len)
 	{
 		if (st->a.head->num <= pivot)
+		{
 			push(st, 'b');
+			write(1, "pb\n", 3);
+		}
 		else
+		{
 			rotate(&(st->a));
+			write(1, "ra\n", 3);
+		}
 		counter++;
 	}
 	set_sorted(st);
@@ -585,10 +597,16 @@ void
 		if (check_stack(st) == TRUE)
 			break;
 		if (st->b.head->num > pivot)
+		{
 			push(st, 'a');
+			write(1, "pa\n", 3);
+		}
 		else
+		{
 			rotate(&(st->b));
-	display_stack(st, "after act in sort b");
+			write(1, "rb\n", 3);
+		}
+	//display_stack(st, "after act in sort b");
 		counter -= set_sorted(st);
 		if (check_stack(st) == TRUE)
 			break;
@@ -612,9 +630,10 @@ void
 			break;
 		if (st->a.head->num == st->nums[0])
 			break;
-	display_stack(st, "before push to b in sort a");
+//	display_stack(st, "before push to b in sort a");
 		push(st, 'b');
-	display_stack(st, "after push to b in sort a");
+		write(1, "pb\n", 3);
+//	display_stack(st, "after push to b in sort a");
 		counter--;
 	}
 }
@@ -623,9 +642,9 @@ void
 	q_sort_stack(t_stacks *st)
 {
 	q_sort_stack_first(st);// first act for q_sort
-	display_stack(st, "after sort first");
+//	display_stack(st, "after sort first");
 	set_sorted(st);
-	display_stack(st, "after sort first and set_sorted");
+//	display_stack(st, "after sort first and set_sorted");
 	while (check_stack(st) == FALSE)
 	{
 		if (check_stack(st) == TRUE)
@@ -634,20 +653,20 @@ void
 		if (st->b.head->exist == 0)
 		{
 			//TODO: s_bが空の時
-	display_stack(st, "before sort a");
+	//display_stack(st, "before sort a");
 			q_sort_stack_a(st);
-	display_stack(st, "after sort a");
-			printf("here\n");
+	//display_stack(st, "after sort a");
+	//		printf("here\n");
 		}
 		else
 		{
 			//TODO: s_bに残ってる時
-	display_stack(st, "before sort b");
+	//display_stack(st, "before sort b");
 			q_sort_stack_b(st);
-	display_stack(st, "after sort b");
+	//display_stack(st, "after sort b");
 		}
 	}
-	display_stack(st, "after sort");
+	//display_stack(st, "after sort");
 }
 
 int
@@ -665,11 +684,11 @@ int
 		exit (0);
 	if (pack_sort_array(&st) == FALSE)
 		exit_error();
-	display_stack(&st, "origin");
+	//display_stack(&st, "origin");
 	//TODO:クイックソート実装
 	q_sort_stack(&st);
 	//TODO:クイックソートで使うスタック動作関数実装し、動作確認
 //	check_act(&st);
-	display_stack(&st, "result");
+//	display_stack(&st, "result");
 	exit (0);
 }
