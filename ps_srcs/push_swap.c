@@ -451,6 +451,45 @@ void
 	//TODO: スタックの先頭がソート済スタックの待ちの数かどうか確認する関数
 }
 
+int
+	wated_num(t_stacks *st, char *flag)
+{
+	printf("st->n_ptr:%d, st->nums[st->n_ptr]:%d, st->a.head->num:%d, st->b.head->num:%d\n", st->n_ptr,st->nums[st->n_ptr], st->a.head->num, st->b.head->num);
+	if (st->nums[st->n_ptr] == st->a.head->num)
+	{
+		*flag = 'a';
+		return (TRUE);
+	}
+	else if (st->nums[st->n_ptr] == st->b.head->num)
+	{
+		*flag = 'b';
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
+int
+	set_sorted(t_stacks *st)
+{
+	char	flag;
+	int		counter;
+
+	counter = 0;
+	while (wated_num(st, &flag) == TRUE)
+	{
+		if (flag == 'a')
+			rotate(&(st->a));
+		else
+		{
+			attach_tail(st);
+			counter++;
+		}
+		flag = '\0';
+		st->n_ptr++;
+	}
+	return (counter);
+}
+
 void
 	q_sort_stack_first(t_stacks *st)
 {
@@ -467,6 +506,7 @@ void
 			rotate(&(st->a));
 		counter++;
 	}
+	set_sorted(st);
 }
 
 int
@@ -530,47 +570,6 @@ int
 	return (TRUE);
 }
 
-int
-	wated_num(t_stacks *st, char *flag)
-{
-	display_stack(st, "inside of wated_num");
-	printf("st->n_ptr:%d, st->nums[st->n_ptr]:%d, st->a.head->num:%d, st->b.head->num:%d\n", st->n_ptr,st->nums[st->n_ptr], st->a.head->num, st->b.head->num);
-	if (st->nums[st->n_ptr] == st->a.head->num)
-	{
-		*flag = 'a';
-		return (TRUE);
-	}
-	else if (st->nums[st->n_ptr] == st->b.head->num)
-	{
-		*flag = 'b';
-		return (TRUE);
-	}
-	return (FALSE);
-}
-
-int
-	set_sorted(t_stacks *st)
-{
-	char	flag;
-	int		counter;
-
-	counter = 0;
-	while (wated_num(st, &flag) == TRUE && check_stack(st) == FALSE)
-	{
-	display_stack(st, "inside of set_sorted");
-		if (flag == 'a')
-			rotate(&(st->a));
-		else
-		{
-			attach_tail(st);
-			counter++;
-		}
-		flag = '\0';
-		st->n_ptr++;
-	}
-	return (counter);
-}
-
 void
 	q_sort_stack_b(t_stacks *st)
 {
@@ -578,8 +577,10 @@ void
 	int		counter;
 
 	pivot = set_pivot_b(&(st->b), &counter);
-	while (counter > 0 && check_stack(st) == FALSE)
+	while (counter > 0)
 	{
+		if (check_stack(st) == TRUE)
+			break;
 		counter -= set_sorted(st);
 		if (check_stack(st) == TRUE)
 			break;
@@ -587,7 +588,10 @@ void
 			push(st, 'a');
 		else
 			rotate(&(st->b));
-	display_stack(st, "inside of q_sort_b");
+	display_stack(st, "after act in sort b");
+		counter -= set_sorted(st);
+		if (check_stack(st) == TRUE)
+			break;
 		if (all_under_pivot(&(st->b), pivot) == TRUE)//pivotより大きい値が無ければブレイク
 			break;
 		counter--;
@@ -601,12 +605,16 @@ void
 	int		counter;
 
 	pivot = set_pivot_a(st, &counter);
-	while (counter > 0 && check_stack(st) == FALSE)
+	while (counter > 0 && st->a.head->num != st->nums[0])
 	{
 		counter -= set_sorted(st);
 		if (check_stack(st) == TRUE) //<-ここで止まった！！！！！！
 			break;
+		if (st->a.head->num == st->nums[0])
+			break;
+	display_stack(st, "before push to b in sort a");
 		push(st, 'b');
+	display_stack(st, "after push to b in sort a");
 		counter--;
 	}
 }
@@ -615,32 +623,31 @@ void
 	q_sort_stack(t_stacks *st)
 {
 	q_sort_stack_first(st);// first act for q_sort
+	display_stack(st, "after sort first");
+	set_sorted(st);
+	display_stack(st, "after sort first and set_sorted");
 	while (check_stack(st) == FALSE)
 	{
-		set_sorted(st);
 		if (check_stack(st) == TRUE)
 			break;
 		//TODO: ソート終了してない時の処理
 		if (st->b.head->exist == 0)
 		{
 			//TODO: s_bが空の時
+	display_stack(st, "before sort a");
 			q_sort_stack_a(st);
+	display_stack(st, "after sort a");
 			printf("here\n");
 		}
 		else
 		{
 			//TODO: s_bに残ってる時
+	display_stack(st, "before sort b");
 			q_sort_stack_b(st);
-	display_stack(st, "q_sort_b");
+	display_stack(st, "after sort b");
 		}
-//	for_debug
-//		if (st->n_ptr == 7)
-//			break;
-		//s_bが要素一つになったらループ抜ける処理（一時的処理）
-//		if (st->b.head == st->b.tail)
-//			attach_tail(st);
-//			break;
 	}
+	display_stack(st, "after sort");
 }
 
 int
