@@ -114,9 +114,9 @@ void
 	int		i;
 	char	flag;
 
-	printf("________________Stack_Circumstance____________________\n");
+	printf("\n________________Stack_Circumstance____________________\n");
 	printf("----------%s----------\n", str);
-	printf("\n*****************\n>>>>>Stack_A<<<<<\n*****************\n");
+	printf("*****************\n>>>>>Stack_A<<<<<\n*****************\n");
 	i = 1;
 	lst = st->a.head;
 	if (lst == st->a.head && lst == st->a.tail)
@@ -149,7 +149,7 @@ void
 		lst = lst->next;
 	}
 
-	printf("\n*****************\n>>>>>Stack_B<<<<<\n*****************\n");
+	printf("*****************\n>>>>>Stack_B<<<<<\n*****************\n");
 	i = 1;
 	lst = st->b.head;
 	if (lst == st->b.head && lst == st->b.tail)
@@ -276,17 +276,21 @@ void
 void
 	rotate(t_stack *stack)
 {
-	int tmp;
+	int t_num;
+	int t_group;
 	t_dlist *ptr;
 
-	tmp = stack->head->num;
+	t_num = stack->head->num;
+	t_group = stack->head->group;
 	ptr = stack->head;
 	while (ptr != stack->tail)
 	{
 		ptr->num = ptr->next->num;
+		ptr->group = ptr->next->group;
 		ptr = ptr->next;
 	}
-	ptr->num = tmp;
+	ptr->num = t_num;
+	ptr->group = t_group;
 }
 
 void
@@ -299,17 +303,21 @@ void
 void
 	rev_rotate(t_stack *stack)
 {
-	int tmp;
+	int t_num;
+	int t_group;
 	t_dlist *ptr;
 
-	tmp = stack->tail->num;
+	t_num = stack->tail->num;
+	t_group = stack->tail->group;
 	ptr = stack->tail;
 	while (ptr != stack->head)
 	{
 		ptr->num = ptr->prev->num;
+		ptr->group = ptr->prev->group;
 		ptr = ptr->prev;
 	}
-	ptr->num = tmp;
+	ptr->num = t_num;
+	ptr->group = t_group;
 }
 
 void
@@ -459,6 +467,8 @@ int
 	wated_num(t_stacks *st, char *flag)
 {
 //	printf("st->n_ptr:%d, st->nums[st->n_ptr]:%d, st->a.head->num:%d, st->b.head->num:%d\n", st->n_ptr,st->nums[st->n_ptr], st->a.head->num, st->b.head->num);
+	if (st->n_ptr >= st->len)
+		return (FALSE);
 	if (st->nums[st->n_ptr] == st->a.head->num)
 	{
 		*flag = 'a';
@@ -479,7 +489,7 @@ int
 	int		counter;
 
 	counter = 0;
-	while (wated_num(st, &flag) == TRUE)
+	while (wated_num(st, &flag) == TRUE && st->n_ptr < st->len)
 	{
 		if (flag == 'a')
 		{
@@ -522,7 +532,7 @@ void
 	}
 	set_sorted(st);
 }
-
+/*
 int
 	set_pivot_a(t_stacks *st, int *counter)
 {
@@ -544,7 +554,7 @@ int
 	q_sort_array(nums, 0, len - 1);
 	return (nums[(len - 1) / 2]);
 }
-
+*/
 int
 	set_pivot_b(t_stack *b, int *counter)
 {
@@ -588,9 +598,10 @@ void
 	q_sort_stack_b(t_stacks *st)
 {
 	int		pivot;
-	int		counter;
-
+	int		counter; 
 	pivot = set_pivot_b(&(st->b), &counter);
+	printf("pivot:%d\n", pivot);
+	st->grp_ctr++;
 	while (counter > 0)
 	{
 		if (check_stack(st) == TRUE)
@@ -598,10 +609,17 @@ void
 		counter -= set_sorted(st);
 		if (check_stack(st) == TRUE)
 			break;
-		if (st->b.head->num > pivot)
+		if (st->b.head->num >= pivot)
 		{
 			push(st, 'a');
+			st->a.head->group = st->grp_ctr;
 			write(1, "pa\n", 3);
+		}
+		else if (st->b.head->next->exist == 0)
+		{
+			printf("HERE!!!\n");
+			set_sorted(st);
+			break;
 		}
 		else
 		{
@@ -609,6 +627,8 @@ void
 			write(1, "rb\n", 3);
 		}
 	//display_stack(st, "after act in sort b");
+		if (check_stack(st) == TRUE)
+			break;
 		counter -= set_sorted(st);
 		if (check_stack(st) == TRUE)
 			break;
@@ -621,6 +641,26 @@ void
 void
 	q_sort_stack_a(t_stacks *st)
 {
+	int group;
+
+	group = st->a.head->group;
+	printf("required-group:%d...head-num:%d,head-group:%d\n", group, st->a.head->num, st->a.head->group);//debug用
+	while (st->a.head->group == group && st->a.head->num != st->nums[0])
+	{
+		if (check_stack(st) == TRUE)
+			break;
+		if (set_sorted(st) > 0 && st->b.head->exist == 0)//この右側の有無で無限ループするしないが変わる。なぜ。。。？
+			break;
+		if (check_stack(st) == TRUE) //<-ここで止まった！！！！！！
+			break;
+	//display_stack(st, "before push to b in sort a");
+	printf("required-group:%d...head-num:%d,head-group:%d\n", group, st->a.head->num, st->a.head->group);//debug用
+		push(st, 'b');
+		write(1, "pb\n", 3);
+	//display_stack(st, "after push to b in sort a");
+	printf("required-group:%d...head-num:%d,head-group:%d\n", group, st->a.head->num, st->a.head->group);//debug用
+	}
+/*
 	int		pivot;
 	int		counter;
 
@@ -632,41 +672,48 @@ void
 			break;
 		if (st->a.head->num == st->nums[0])
 			break;
-//	display_stack(st, "before push to b in sort a");
+//display_stack(st, "before push to b in sort a");
 		push(st, 'b');
 		write(1, "pb\n", 3);
-//	display_stack(st, "after push to b in sort a");
+//display_stack(st, "after push to b in sort a");
 		counter--;
 	}
+*/
 }
 
 void
 	q_sort_stack(t_stacks *st)
 {
+	st->grp_ctr = 0;
+	//ピボットより小さい数をスタックBへ送る
 	q_sort_stack_first(st);// first act for q_sort
-//	display_stack(st, "after sort first");
+	//display_stack(st, "after sort first");
+	//半々の状態でソート済の数がA,Bの先頭にあればAの末尾に送っていく
 	set_sorted(st);
-//	display_stack(st, "after sort first and set_sorted");
+	//display_stack(st, "after sort first and set_sorted");
+	//ソート済で無ければ以下のwhileでソート完了までループし続ける
 	while (check_stack(st) == FALSE)
 	{
-		if (check_stack(st) == TRUE)
-			break;
 		//TODO: ソート終了してない時の処理
+		//Bが空っぽの時のソート
 		if (st->b.head->exist == 0)
 		{
 			//TODO: s_bが空の時
 	//display_stack(st, "before sort a");
+			//Aから前回のq_sort_stack_bでAに同タイミングでプッシュした数（同グループ番号）をBへ送る
 			q_sort_stack_a(st);
 	//display_stack(st, "after sort a");
-	//		printf("here\n");
 		}
+		//Bに何かしら要素が入ってる時
 		else
 		{
 			//TODO: s_bに残ってる時
 	//display_stack(st, "before sort b");
+			//ピボットより大きい数をスタックAへ送る
 			q_sort_stack_b(st);
 	//display_stack(st, "after sort b");
 		}
+		//display_stack(st, "after each sort");
 	}
 	//display_stack(st, "after sort");
 }
@@ -686,11 +733,11 @@ int
 		exit (0);
 	if (pack_sort_array(&st) == FALSE)
 		exit_error();
-	display_stack(&st, "origin");
+	//display_stack(&st, "origin");
 	//TODO:クイックソート実装
 	q_sort_stack(&st);
 	//TODO:クイックソートで使うスタック動作関数実装し、動作確認
 //	check_act(&st);
-	display_stack(&st, "result");
+	//display_stack(&st, "result");
 	exit (0);
 }
