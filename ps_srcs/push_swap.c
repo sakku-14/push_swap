@@ -24,6 +24,7 @@ int
 	stack->tail->next = new;
 	stack->head->prev = new;
 	new->num = num;
+	new->group = 0;
 	new->exist = exist;
 	new->next = stack->head;
 	new->prev = stack->tail;
@@ -38,6 +39,7 @@ void
 
 	lst = malloc(sizeof(t_dlist));
 	lst->num = num;
+	lst->group = 0;
 	lst->exist = exist;
 	lst->next = lst;
 	lst->prev = lst;
@@ -127,7 +129,7 @@ void
 		flag = 'o';
 	else
 		flag = 'x';
-	printf("%3d->%3d | %c | addr->%p | prev->%p | next->%p\n", i, lst->num, flag, lst, lst->prev, lst->next);
+	printf("%3d->%3d(%d) | %c | addr->%p | prev->%p | next->%p\n", i, lst->num, lst->group, flag, lst, lst->prev, lst->next);
 	i++;
 	lst = lst->next;
 	while (lst != st->a.head)
@@ -142,7 +144,7 @@ void
 			flag = 'o';
 		else
 			flag = 'x';
-		printf("%3d->%3d | %c | addr->%p | prev->%p | next->%p\n", i, lst->num, flag, lst, lst->prev, lst->next);
+		printf("%3d->%3d(%d) | %c | addr->%p | prev->%p | next->%p\n", i, lst->num, lst->group, flag, lst, lst->prev, lst->next);
 		i++;
 		lst = lst->next;
 	}
@@ -160,7 +162,7 @@ void
 		flag = 'o';
 	else
 		flag = 'x';
-	printf("%3d->%3d | %c | addr->%p | prev->%p | next->%p\n", i, lst->num, flag, lst, lst->prev, lst->next);
+	printf("%3d->%3d(%d) | %c | addr->%p | prev->%p | next->%p\n", i, lst->num, lst->group, flag, lst, lst->prev, lst->next);
 	i++;
 	lst = lst->next;
 	while (lst != st->b.head)
@@ -175,7 +177,7 @@ void
 			flag = 'o';
 		else
 			flag = 'x';
-		printf("%3d->%3d | %c | addr->%p | prev->%p | next->%p\n", i, lst->num, flag, lst, lst->prev, lst->next);
+		printf("%3d->%3d(%d) | %c | addr->%p | prev->%p | next->%p\n", i, lst->num, lst->group, flag, lst, lst->prev, lst->next);
 		i++;
 		lst = lst->next;
 	}
@@ -684,11 +686,11 @@ int
 		exit (0);
 	if (pack_sort_array(&st) == FALSE)
 		exit_error();
-	//display_stack(&st, "origin");
+	display_stack(&st, "origin");
 	//TODO:クイックソート実装
 	q_sort_stack(&st);
 	//TODO:クイックソートで使うスタック動作関数実装し、動作確認
 //	check_act(&st);
-//	display_stack(&st, "result");
+	display_stack(&st, "result");
 	exit (0);
 }
