@@ -569,9 +569,9 @@ void
 	q_sort_stack_b(t_stacks *st)
 {
 	int		pivot;
-	int		counter; 
+	int		counter;
+
 	pivot = set_pivot_b(st, &counter);
-//	printf("pivot:%d\n", pivot);
 	st->grp_ctr++;
 	while (counter > 0)
 	{
@@ -587,32 +587,19 @@ void
 			st->a.head->group = st->grp_ctr;
 			write(1, "pa\n", 3);
 		}
-		/*
-		else if (st->b.head->next->exist == 0)
-		{
-//			printf("HERE!!!\n");
-			set_sorted(st);
-			break;
-		}
-		*/
 		else
 		{
-			//printf("pivot:%d\n", pivot);
 			//display_stack(st, "check act");
 			rotate(&(st->b));
 			write(1, "rb\n", 3);
 		}
 		counter--;
-		//debug
-		//printf("pivot:%d\n", pivot);
 		//display_stack(st, "after act in sort b");
 		if (check_stack(st) == TRUE)
 			break;
 		counter -= set_sorted(st);
 		if (check_stack(st) == TRUE)
 			break;
-//		if (all_under_pivot(&(st->b), pivot) == TRUE)//pivotより大きい値が無ければブレイク
-//			break;
 	}
 }
 
@@ -622,20 +609,12 @@ void
 	int group;
 
 	group = st->a.head->group;
-//	printf("required-group:%d...head-num:%d,head-group:%d\n", group, st->a.head->num, st->a.head->group);//debug用
 	while (st->a.head->group == group && st->a.head->num != st->nums[0])
 	{
-		/* 今は省いておく
-		if (set_sorted(st) > 0 && st->b.head->exist == 0)//この右側の有無で無限ループするしないが変わる。なぜ。。。？
-			break;
-		if (check_stack(st) == TRUE) //<-ここで止まった！！！！！！
-			break;
-		*/
 	//display_stack(st, "before push to b in sort a");
-//		printf("required-group:%d...head-num:%d,head-group:%d\n", group, st->a.head->num, st->a.head->group);//debug用
 		push(st, 'b');
 		write(1, "pb\n", 3);
-//		printf("required-group:%d...head-num:%d,head-group:%d\n", group, st->a.head->num, st->a.head->group);//debug用
+		set_sorted(st);
 	//display_stack(st, "after push to b in sort a");
 	}
 }
@@ -693,6 +672,6 @@ int
 		exit_error();
 	//display_stack(&st, "origin");
 	q_sort_stack(&st);
-	//display_stack(&st, "result");
+	display_stack(&st, "result");
 	exit (0);
 }
