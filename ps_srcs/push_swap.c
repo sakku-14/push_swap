@@ -672,6 +672,6 @@ int
 		exit_error();
 	//display_stack(&st, "origin");
 	q_sort_stack(&st);
-	display_stack(&st, "result");
+	//display_stack(&st, "result");
 	exit (0);
 }
