@@ -256,11 +256,11 @@ void
 		stack->head = stack->head->next;
 }
 
-void
+int
 	push(t_stacks *st, char to)
 {
 	if (push_available(st, to) == FALSE)
-		return ;
+		return (FALSE);
 	if (to == 'a')
 	{
 		push_lst(&st->b, &st->a);
@@ -271,6 +271,7 @@ void
 		push_lst(&st->a, &st->b);
 		after_push(&st->a);
 	}
+	return (TRUE);
 }
 
 void
@@ -433,7 +434,7 @@ void
 	sort_array(int *nums, int len)
 {
 	q_sort_array(nums, 0, len - 1);
-//	display_array(nums, len);
+	display_array(nums, len);
 }
 
 int
@@ -452,9 +453,11 @@ void
 {
 	push(st, 'a');
 	rotate(&st->a);
+	st->a.tail->group = -1;
 }
 
 //for check act
+/*
 void
 	check_act(t_stacks *st)
 {
@@ -462,7 +465,7 @@ void
 	attach_tail(st);
 	//TODO: スタックの先頭がソート済スタックの待ちの数かどうか確認する関数
 }
-
+*/
 int
 	wated_num(t_stacks *st, char *flag)
 {
@@ -494,6 +497,7 @@ int
 		if (flag == 'a')
 		{
 			rotate(&(st->a));
+			st->a.tail->group = -1;
 			write(1, "ra\n", 3);
 		}
 		else
@@ -530,7 +534,6 @@ void
 		}
 		counter++;
 	}
-	set_sorted(st);
 }
 /*
 int
@@ -556,15 +559,15 @@ int
 }
 */
 int
-	set_pivot_b(t_stack *b, int *counter)
+	set_pivot_b(t_stacks *st, int *counter)
 {
 	int		len;
-	int		nums[262144];
+	int		nums[st->len];
 	t_dlist	*ptr;
 
 	len = 0;
-	ptr = b->head;
-	while (ptr != b->tail)
+	ptr = st->b.head;
+	while (ptr != st->b.tail)
 	{
 		nums[len] = ptr->num;
 		ptr = ptr->next;
@@ -599,8 +602,8 @@ void
 {
 	int		pivot;
 	int		counter; 
-	pivot = set_pivot_b(&(st->b), &counter);
-	printf("pivot:%d\n", pivot);
+	pivot = set_pivot_b(st, &counter);
+//	printf("pivot:%d\n", pivot);
 	st->grp_ctr++;
 	while (counter > 0)
 	{
@@ -609,32 +612,39 @@ void
 		counter -= set_sorted(st);
 		if (check_stack(st) == TRUE)
 			break;
-		if (st->b.head->num >= pivot)
+		if (st->b.head->num > pivot)
 		{
-			push(st, 'a');
+			if (push(st, 'a') == FALSE)
+				break;
 			st->a.head->group = st->grp_ctr;
 			write(1, "pa\n", 3);
 		}
+		/*
 		else if (st->b.head->next->exist == 0)
 		{
-			printf("HERE!!!\n");
+//			printf("HERE!!!\n");
 			set_sorted(st);
 			break;
 		}
+		*/
 		else
 		{
+			//printf("pivot:%d\n", pivot);
+			//display_stack(st, "check act");
 			rotate(&(st->b));
 			write(1, "rb\n", 3);
 		}
-	//display_stack(st, "after act in sort b");
+		counter--;
+		//debug
+		//printf("pivot:%d\n", pivot);
+		//display_stack(st, "after act in sort b");
 		if (check_stack(st) == TRUE)
 			break;
 		counter -= set_sorted(st);
 		if (check_stack(st) == TRUE)
 			break;
-		if (all_under_pivot(&(st->b), pivot) == TRUE)//pivotより大きい値が無ければブレイク
-			break;
-		counter--;
+//		if (all_under_pivot(&(st->b), pivot) == TRUE)//pivotより大きい値が無ければブレイク
+//			break;
 	}
 }
 
@@ -644,48 +654,29 @@ void
 	int group;
 
 	group = st->a.head->group;
-	printf("required-group:%d...head-num:%d,head-group:%d\n", group, st->a.head->num, st->a.head->group);//debug用
+//	printf("required-group:%d...head-num:%d,head-group:%d\n", group, st->a.head->num, st->a.head->group);//debug用
 	while (st->a.head->group == group && st->a.head->num != st->nums[0])
 	{
-		if (check_stack(st) == TRUE)
-			break;
+		/* 今は省いておく
 		if (set_sorted(st) > 0 && st->b.head->exist == 0)//この右側の有無で無限ループするしないが変わる。なぜ。。。？
 			break;
 		if (check_stack(st) == TRUE) //<-ここで止まった！！！！！！
 			break;
+		*/
 	//display_stack(st, "before push to b in sort a");
-	printf("required-group:%d...head-num:%d,head-group:%d\n", group, st->a.head->num, st->a.head->group);//debug用
+//		printf("required-group:%d...head-num:%d,head-group:%d\n", group, st->a.head->num, st->a.head->group);//debug用
 		push(st, 'b');
 		write(1, "pb\n", 3);
+//		printf("required-group:%d...head-num:%d,head-group:%d\n", group, st->a.head->num, st->a.head->group);//debug用
 	//display_stack(st, "after push to b in sort a");
-	printf("required-group:%d...head-num:%d,head-group:%d\n", group, st->a.head->num, st->a.head->group);//debug用
 	}
-/*
-	int		pivot;
-	int		counter;
-
-	pivot = set_pivot_a(st, &counter);
-	while (counter > 0 && st->a.head->num != st->nums[0])
-	{
-		counter -= set_sorted(st);
-		if (check_stack(st) == TRUE) //<-ここで止まった！！！！！！
-			break;
-		if (st->a.head->num == st->nums[0])
-			break;
-//display_stack(st, "before push to b in sort a");
-		push(st, 'b');
-		write(1, "pb\n", 3);
-//display_stack(st, "after push to b in sort a");
-		counter--;
-	}
-*/
 }
 
 void
 	q_sort_stack(t_stacks *st)
 {
 	st->grp_ctr = 0;
-	//ピボットより小さい数をスタックBへ送る
+	//ピボット以下の数をスタックBへ送る
 	q_sort_stack_first(st);// first act for q_sort
 	//display_stack(st, "after sort first");
 	//半々の状態でソート済の数がA,Bの先頭にあればAの末尾に送っていく
