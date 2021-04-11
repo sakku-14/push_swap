@@ -434,7 +434,7 @@ void
 	sort_array(int *nums, int len)
 {
 	q_sort_array(nums, 0, len - 1);
-	display_array(nums, len);
+	//display_array(nums, len);
 }
 
 int
@@ -456,16 +456,6 @@ void
 	st->a.tail->group = -1;
 }
 
-//for check act
-/*
-void
-	check_act(t_stacks *st)
-{
-	attach_tail(st);
-	attach_tail(st);
-	//TODO: スタックの先頭がソート済スタックの待ちの数かどうか確認する関数
-}
-*/
 int
 	wated_num(t_stacks *st, char *flag)
 {
@@ -535,29 +525,7 @@ void
 		counter++;
 	}
 }
-/*
-int
-	set_pivot_a(t_stacks *st, int *counter)
-{
-	int		len;
-	int		nums[262144];
-	t_dlist	*ptr;
 
-	len = 0;
-	ptr = st->a.head;
-	while (ptr != st->a.tail && ptr->next->num != st->nums[0])
-	{
-		nums[len] = ptr->num;
-		ptr = ptr->next;
-		len++;
-	}
-	nums[len] = ptr->num;
-	len++;
-	*counter = len;
-	q_sort_array(nums, 0, len - 1);
-	return (nums[(len - 1) / 2]);
-}
-*/
 int
 	set_pivot_b(t_stacks *st, int *counter)
 {
@@ -714,7 +682,6 @@ int
 {
 	t_stacks	st;
 
-	//TODO: マイナス対応→ft_isdigit
 	if (ac == 1 || check_av(ac, av) == FALSE)
 		exit_error();
 	st.len = ac - 1;
@@ -725,10 +692,7 @@ int
 	if (pack_sort_array(&st) == FALSE)
 		exit_error();
 	//display_stack(&st, "origin");
-	//TODO:クイックソート実装
 	q_sort_stack(&st);
-	//TODO:クイックソートで使うスタック動作関数実装し、動作確認
-//	check_act(&st);
 	//display_stack(&st, "result");
 	exit (0);
 }
