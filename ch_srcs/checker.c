@@ -361,9 +361,9 @@ void
 	else if (ft_strnstr(buf, "rr\n", 3))
 		w_rotate(st);
 	else if (ft_strnstr(buf, "rra\n", 4))
-		rev_rotate(&st->a);   
+		rev_rotate(&st->a);
 	else if (ft_strnstr(buf, "rrb\n", 4))
-		rev_rotate(&st->b);   
+		rev_rotate(&st->b);
 	else if (ft_strnstr(buf, "rrr\n", 4))
 		w_rev_rotate(st);
 }
