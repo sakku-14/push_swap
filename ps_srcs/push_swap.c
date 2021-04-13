@@ -657,6 +657,90 @@ void
 }
 
 int
+	check_three_asc(t_stacks *st)
+{
+	int	i;
+	int	counter;
+	t_dlist	*ptr;
+
+	i = 0;
+	while (st->nums[i] != st->a.head->num)
+		i++;
+	counter = 0;
+	ptr = st->a.head;
+	while (counter != 3)
+	{
+		if (i == st->len)
+			i = 0;
+		if (ptr->num == st->nums[i])
+			counter++;
+		else
+			return (FALSE);
+		if (ptr != st->a.tail)
+			ptr = ptr->next;
+		i++;
+	}
+	return (TRUE);
+}
+
+int
+	ra_need(t_stacks *st)
+{
+	int	head;
+	t_dlist	*ptr;
+
+	head = 0;
+	ptr = st->a.head;
+	while (st->nums[0] != ptr->num)
+	{
+		ptr = ptr->next;
+		head++;
+	}
+	if (head <= 1)
+		return (TRUE);
+	return (FALSE);
+}
+
+void
+	sort_three(t_stacks *st)
+{
+	if (check_three_asc(st) == FALSE)
+	{
+		swap(&st->a);
+		write(1, "sa\n", 3);
+	}
+	if (check_stack_a(st) == FALSE)
+	{
+		if (ra_need(st) == TRUE)
+		{
+			rotate(&st->a);
+			write(1, "ra\n", 3);
+		}
+		else
+		{
+			rev_rotate(&st->a);
+			write(1, "rra\n", 4);
+		}
+	}
+}
+
+/*
+void
+	sort_five(t_stacks *st)
+{
+}
+*/
+
+void
+	sort_less_elem(t_stacks *st)
+{
+	if (st->len == 3)
+		sort_three(st);
+//	else if (st->len == 5)
+//		sort_five(st);
+}
+
+int
 	main(int ac, char **av)
 {
 	t_stacks	st;
@@ -670,8 +754,9 @@ int
 		exit (0);
 	if (pack_sort_array(&st) == FALSE)
 		exit_error();
-	//display_stack(&st, "origin");
-	q_sort_stack(&st);
-	//display_stack(&st, "result");
+	if (st.len == 3 || st.len == 5)
+		sort_less_elem(&st);
+	else
+		q_sort_stack(&st);
 	exit (0);
 }

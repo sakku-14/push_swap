@@ -333,9 +333,9 @@ int
 	}
 	else if (ft_strlen(buf) == 3)
 	{
-		if (ft_strnstr(buf, "rra\n", 3) || ft_strnstr(buf, "rrb", 3))
+		if (ft_strnstr(buf, "rra", 3) || ft_strnstr(buf, "rrb", 3))
 			return (TRUE);
-		else if (ft_strnstr(buf, "rrr\n", 3))
+		else if (ft_strnstr(buf, "rrr", 3))
 			return (TRUE);
 	}
 	return (FALSE);
@@ -354,18 +354,18 @@ void
 		push(st, 'a');
 	else if (ft_strnstr(buf, "pb", 2))
 		push(st, 'b');
-	else if (ft_strnstr(buf, "ra", 2))
-		rotate(&st->a);
-	else if (ft_strnstr(buf, "rb", 2))
-		rotate(&st->b);
-	else if (ft_strnstr(buf, "rr", 2))
-		w_rotate(st);
 	else if (ft_strnstr(buf, "rra", 3))
 		rev_rotate(&st->a);
 	else if (ft_strnstr(buf, "rrb", 3))
 		rev_rotate(&st->b);
 	else if (ft_strnstr(buf, "rrr", 3))
 		w_rev_rotate(st);
+	else if (ft_strnstr(buf, "ra", 2))
+		rotate(&st->a);
+	else if (ft_strnstr(buf, "rb", 2))
+		rotate(&st->b);
+	else if (ft_strnstr(buf, "rr", 2))
+		w_rotate(st);
 }
 
 int
@@ -427,7 +427,7 @@ int
 		exit_error();
 	if (get_do_ord(&st) == FALSE)
 		exit_error();
-	display_stack(&st, "result");
+	//display_stack(&st, "result");
 	if (check_stack(&st) == TRUE)
 		write(1, "OK\n", 3);
 	else
