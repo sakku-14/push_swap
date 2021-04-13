@@ -725,9 +725,38 @@ void
 }
 
 /*
+//TODO: ５個の中で、昇順に最大何個並んでるか数え、リターンする関数
+int
+	asc_count(t_stacks *st)
+{
+	int	ret;
+	int	counter;
+	t_dlist	*ptr;
+
+	ret = 1;
+	ptr = st->a.head;
+	while (asc_pres_next(st) == TRUE)
+	{
+		ret++;
+		ptr = ptr->next;
+	}
+	return (ret);
+}
+
+//TODO: 昇順に並んでるので、あとはra,rraでnums[0]が先頭に来るまで回していく関数
+void
+	final_rotates(t_stacks *st)
+{
+}
+
 void
 	sort_five(t_stacks *st)
 {
+	int	counter;
+
+	counter = asc_count(st);
+	if (counter == 5)
+		final_rotates(st);
 }
 */
 
