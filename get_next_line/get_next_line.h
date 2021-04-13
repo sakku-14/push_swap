@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 13:43:50 by ysakuma           #+#    #+#             */
-/*   Updated: 2020/11/04 18:41:23 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/13 12:18:21 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #  define MAX_FD 256
 # endif
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 100000
 # endif
 
 int		get_next_line(int fd, char **line);

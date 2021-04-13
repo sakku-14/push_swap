@@ -318,24 +318,24 @@ void
 int
 	check_order(char *buf)
 {
-	if (ft_strlen(buf) == 3)
+	if (ft_strlen(buf) == 2)
 	{
-		if (ft_strnstr(buf, "sa\n", 3) || ft_strnstr(buf, "sb\n", 3))
+		if (ft_strnstr(buf, "sa", 2) || ft_strnstr(buf, "sb", 2))
 			return (TRUE);
-		else if (ft_strnstr(buf, "ss\n", 3))
+		else if (ft_strnstr(buf, "ss", 2))
 			return (TRUE);
-		else if (ft_strnstr(buf, "pa\n", 3) || ft_strnstr(buf, "pb\n", 3))
+		else if (ft_strnstr(buf, "pa", 2) || ft_strnstr(buf, "pb", 2))
 			return (TRUE);
-		else if (ft_strnstr(buf, "ra\n", 3) || ft_strnstr(buf, "rb\n", 3))
+		else if (ft_strnstr(buf, "ra", 2) || ft_strnstr(buf, "rb", 2))
 			return (TRUE);
-		else if (ft_strnstr(buf, "rr\n", 3))
+		else if (ft_strnstr(buf, "rr", 2))
 			return (TRUE);
 	}
-	else if (ft_strlen(buf) == 4)
+	else if (ft_strlen(buf) == 3)
 	{
-		if (ft_strnstr(buf, "rra\n", 4) || ft_strnstr(buf, "rrb", 4))
+		if (ft_strnstr(buf, "rra\n", 3) || ft_strnstr(buf, "rrb", 3))
 			return (TRUE);
-		else if (ft_strnstr(buf, "rrr\n", 4))
+		else if (ft_strnstr(buf, "rrr\n", 3))
 			return (TRUE);
 	}
 	return (FALSE);
@@ -344,27 +344,27 @@ int
 void
 	do_order(t_stacks *st, char *buf)
 {
-	if (ft_strnstr(buf, "sa\n", 3))
+	if (ft_strnstr(buf, "sa", 2))
 		swap(&st->a);
-	else if (ft_strnstr(buf, "sb\n", 3))
+	else if (ft_strnstr(buf, "sb", 2))
 		swap(&st->b);
-	else if (ft_strnstr(buf, "ss\n", 3))
+	else if (ft_strnstr(buf, "ss", 2))
 		w_swap(st);
-	else if (ft_strnstr(buf, "pa\n", 3))
+	else if (ft_strnstr(buf, "pa", 2))
 		push(st, 'a');
-	else if (ft_strnstr(buf, "pb\n", 3))
+	else if (ft_strnstr(buf, "pb", 2))
 		push(st, 'b');
-	else if (ft_strnstr(buf, "ra\n", 3))
+	else if (ft_strnstr(buf, "ra", 2))
 		rotate(&st->a);
-	else if (ft_strnstr(buf, "rb\n", 3))
+	else if (ft_strnstr(buf, "rb", 2))
 		rotate(&st->b);
-	else if (ft_strnstr(buf, "rr\n", 3))
+	else if (ft_strnstr(buf, "rr", 2))
 		w_rotate(st);
-	else if (ft_strnstr(buf, "rra\n", 4))
+	else if (ft_strnstr(buf, "rra", 3))
 		rev_rotate(&st->a);
-	else if (ft_strnstr(buf, "rrb\n", 4))
+	else if (ft_strnstr(buf, "rrb", 3))
 		rev_rotate(&st->b);
-	else if (ft_strnstr(buf, "rrr\n", 4))
+	else if (ft_strnstr(buf, "rrr", 3))
 		w_rev_rotate(st);
 }
 
@@ -372,17 +372,15 @@ int
 	get_do_ord(t_stacks *st)
 {
 	int ret;
-	char buf[100000];
+	char *buf;
 
-	ft_bzero(buf, 100000);
-	while ((ret = read(0, buf, 100000)) != 0)
+	while ((ret = get_next_line(0, &buf)) != 0)
 	{
 		if (ret < 0)
 			return (FALSE);
 		if (check_order(buf) == FALSE)
 			return (FALSE);
 		do_order(st, buf);
-		ft_bzero(buf, 100000);
 	}
 	return (TRUE);
 }
