@@ -684,7 +684,7 @@ int
 }
 
 int
-	ra_need(t_stacks *st)
+	ra_need(t_stacks *st, int num)
 {
 	int	head;
 	t_dlist	*ptr;
@@ -696,7 +696,7 @@ int
 		ptr = ptr->next;
 		head++;
 	}
-	if (head <= 1)
+	if (head <= num / 2)
 		return (TRUE);
 	return (FALSE);
 }
@@ -711,7 +711,7 @@ void
 	}
 	if (check_stack_a(st) == FALSE)
 	{
-		if (ra_need(st) == TRUE)
+		if (ra_need(st, 3) == TRUE)
 		{
 			rotate(&st->a);
 			write(1, "ra\n", 3);
@@ -724,29 +724,303 @@ void
 	}
 }
 
-/*
-//TODO: ５個の中で、昇順に最大何個並んでるか数え、リターンする関数
+int
+	asc_pres_next(t_stacks *st, t_dlist *ptr)
+{
+	int	i;
+
+	i = 0;
+	while (st->nums[i] != ptr->num)
+		i++;
+	if (i == st->len - 1)
+		i = 0;
+	else
+		i++;
+	if (ptr == st->a.tail)
+		ptr = st->a.head;
+	else
+		ptr = ptr->next;
+	if (st->nums[i] == ptr->num)
+		return (TRUE);
+	return (FALSE);
+}
+
+int
+	max_is(int a, int b)
+{
+	if (a < b)
+		return (b);
+	return (a);
+}
+
 int
 	asc_count(t_stacks *st)
 {
 	int	ret;
 	int	counter;
 	t_dlist	*ptr;
+	t_dlist	*tmp;
 
-	ret = 1;
-	ptr = st->a.head;
-	while (asc_pres_next(st) == TRUE)
+	counter = 0;
+	tmp = st->a.head;
+	while (counter == 0 || tmp != st->a.head)
 	{
-		ret++;
-		ptr = ptr->next;
+		counter = 1;
+		ptr = tmp;
+		while (asc_pres_next(st, ptr) == TRUE && counter != 5)
+		{
+			counter++;
+			ptr->group = 1;
+			ptr = ptr->next;
+		}
+		ret = max_is(counter, ret);
+		tmp = tmp->next;
 	}
 	return (ret);
 }
 
-//TODO: 昇順に並んでるので、あとはra,rraでnums[0]が先頭に来るまで回していく関数
 void
 	final_rotates(t_stacks *st)
 {
+	while (check_stack_a(st) == FALSE)
+	{
+		if (ra_need(st, 5) == TRUE)
+		{
+			rotate(&st->a);
+			write(1, "ra\n", 3);
+		}
+		else
+		{
+			rev_rotate(&st->a);
+			write(1, "rra\n", 4);
+		}
+	}
+}
+
+void
+	set_pair_ra(t_stacks *st, int i)
+{
+	while (i > 0)
+	{
+		rotate(&st->a);
+		write(1, "ra\n", 3);
+		i--;
+	}
+}
+
+void
+	set_pair_rra(t_stacks *st, int i)
+{
+	while (i < 5)
+	{
+		rev_rotate(&st->a);
+		write(1, "rra\n", 4);
+		i++;
+	}
+}
+
+void
+	set_asc_head(t_stacks *st)
+{
+	int	i;
+	t_dlist	*ptr;
+
+	i = 0;
+	ptr = st->a.head;
+	while (i < 5)
+	{
+		if (asc_pres_next(st, ptr) == TRUE)
+			break;
+		i++;
+		ptr = ptr->next;
+	}
+	if (i < 3)
+		set_pair_ra(st, i);
+	else
+		set_pair_rra(st, i);
+}
+
+void
+	w_push(t_stacks *st, char to)
+{
+	push(st, to);
+	push(st, to);
+	if (to == 'b')
+		write(1, "pb\npb\n", 6);
+	else
+		write(1, "pa\npa\n", 6);
+}
+
+int
+	check_a_asc(t_stacks *st)
+{
+	int	i;
+	int	counter;
+	t_dlist	*ptr;
+
+	i = 0;
+	counter = 0;
+	ptr = st->a.head;
+	while (st->nums[i] != ptr->num)
+		i++;
+	while (counter != 3)
+	{
+		if (st->nums[i] != ptr->num)
+			return (FALSE);
+		counter++;
+		if (i < 5)
+			i++;
+		else
+			i = 0;
+		if (ptr == st->a.tail)
+			ptr = st->a.head;
+		else
+			ptr = ptr->next;
+	}
+	return (TRUE);
+}
+
+int
+	min_is(int a, int b)
+{
+	if (a > b)
+		return (b);
+	return (a);
+}
+
+int
+	ra_need_sub(t_stacks *st)
+{
+	int	i;
+	int	min;
+	t_dlist	*ptr;
+
+	ptr = st->a.head;
+	min = INT_MAX;
+	while (ptr != st->a.tail)
+	{
+		min = min_is(min, ptr->num);
+		ptr = ptr->next;
+	}
+	min = min_is(min, ptr->num);
+	i = 0;
+	ptr = st->a.head;
+	while (ptr != st->a.tail)
+	{
+		if (ptr->num == min)
+			break;
+		i++;
+		ptr = ptr->next;
+	}
+	if (i < 2)
+		return (TRUE);
+	return (FALSE);
+}
+
+void
+	set_three_asc(t_stacks *st)
+{
+	if (check_a_asc(st) == FALSE)
+	{
+		swap(&st->a);
+		write(1, "sa\n", 3);
+	}
+	if (check_stack_a(st) == FALSE)
+	{
+		if (ra_need_sub(st) == TRUE)
+		{
+			rotate(&st->a);
+			write(1, "ra\n", 3);
+		}
+		else
+		{
+			rev_rotate(&st->a);
+			write(1, "rra\n", 4);
+		}
+	}
+}
+
+void
+	set_three(t_stacks *st)
+{
+	set_asc_head(st);
+	w_push(st, 'b');
+	set_three_asc(st);
+	w_push(st, 'a');
+}
+
+void
+	set_min_of_asc(t_stacks *st, int *min, t_dlist *ptr)
+{
+	*min = INT_MAX;
+	ptr = st->a.head;
+	while (ptr != st->a.tail)
+	{
+		if (ptr->group == 1)
+			*min = min_is(*min, ptr->num);
+		ptr = ptr->next;
+	}
+	if (ptr->group == 1)
+		*min = min_is(*min, ptr->num);
+}
+
+void
+	set_not_asc_head(t_stacks *st, int i)
+{
+	if (i < 3)
+	{
+		while (i > 0)
+		{
+			rotate(&st->a);
+			write(1, "ra\n", 3);
+			i--;
+		}
+	}
+	else
+	{
+		while (i < 5)
+		{
+			rev_rotate(&st->a);
+			write(1, "rra\n", 4);
+			i++;
+		}
+	}
+}
+
+void
+	set_not_head(t_stacks *st)
+{
+	int	min;
+	int	i;
+	t_dlist	*ptr;
+
+	ptr = st->a.head;
+	set_min_of_asc(st, &min, ptr);
+	i = 0;
+	while (ptr->num != min)
+	{
+		i++;
+		ptr = ptr->next;
+	}
+	if (i == 0 && st->a.head->num == min)
+	{
+		i = 4;
+		ptr = st->a.tail;
+		while (ptr->prev->num == min)
+			i--;
+	}
+	i += 3;
+	if (i > 5)
+		i -= 4;
+	set_not_asc_head(st, i);
+}
+
+void
+	set_two(t_stacks *st)
+{
+	set_not_head(st);
+	swap(&st->a);
+	write(1, "sa\n", 3);
 }
 
 void
@@ -755,18 +1029,20 @@ void
 	int	counter;
 
 	counter = asc_count(st);
-	if (counter == 5)
-		final_rotates(st);
+	if (counter == 2)
+		set_three(st);
+	else if (counter == 3)
+		set_two(st);
+	final_rotates(st);
 }
-*/
 
 void
 	sort_less_elem(t_stacks *st)
 {
 	if (st->len == 3)
 		sort_three(st);
-//	else if (st->len == 5)
-//		sort_five(st);
+	else if (st->len == 5)
+		sort_five(st);
 }
 
 int
