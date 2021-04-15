@@ -952,11 +952,31 @@ void
 }
 
 void
+	set_three_order(t_stacks *st)
+{
+	int	i;
+
+	i = 0;
+	while (st->b.head->num != st->nums[i])
+		i++;
+	if (i != 4)
+		i++;
+	else
+		i = 0;
+	while (st->a.head->num != st->nums[i])
+	{
+		rotate(&st->a);
+		write(1, "ra\n", 3);
+	}
+}
+
+void
 	set_three(t_stacks *st)
 {
 	set_asc_head(st);
 	w_push(st, 'b');
 	set_three_asc(st);
+	set_three_order(st);
 	w_push(st, 'a');
 }
 
