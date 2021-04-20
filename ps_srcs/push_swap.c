@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 23:09:05 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/04/20 18:32:59 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/20 18:46:32 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1016,6 +1016,49 @@ void
 		(*i)++;
 }
 
+int
+	scale_len_is_3(t_stacks *st, t_dlist **ptr, int *i)
+{
+	int len;
+
+	len = 0;
+	while ((*ptr)->num == st->nums[*i])
+	{
+		len++;
+		next_index_is(i, st->len);
+		next_ptr_in_a(st, ptr);
+	}
+	if (len == 3)
+		return (TRUE);
+	return (FALSE);
+}
+
+void
+	search_bad_head_in_snh(t_stacks *st, t_dlist **ptr, t_dlist **tmp)
+{
+	int	counter;
+	int	i;
+
+	counter = 0;
+	*ptr = st->a.head;
+	while (counter < 5)
+	{
+		i = 0;
+		while (i < st->len)
+		{
+			if ((*ptr)->num == st->nums[i])
+				break;
+			i++;
+		}
+		*tmp = *ptr;
+		if (scale_len_is_3(st, ptr, &i) == TRUE)
+			break;
+		*ptr = *tmp;
+		next_ptr_in_a(st, ptr);
+		counter++;
+	}
+}
+
 void
 	ra_rra_count_in_snh(t_stacks *st, t_dlist *ptr, t_dlist *tmp, int *i)
 {
@@ -1053,36 +1096,10 @@ void
 	set_not_head(t_stacks *st)
 {
 	int	i;
-	int	counter;
-	int	len;
 	t_dlist	*ptr;
 	t_dlist	*tmp;
 
-	counter = 0;
-	ptr = st->a.head;
-	while (counter < 5)
-	{
-		i = 0;
-		while (i < st->len)
-		{
-			if (ptr->num == st->nums[i])
-				break;
-			i++;
-		}
-		len = 0;
-		tmp = ptr;
-		while (ptr->num == st->nums[i])
-		{
-			len++;
-			next_index_is(&i, st->len);
-			next_ptr_in_a(st, &ptr);
-		}
-		if (len == 3)
-			break;
-		ptr = tmp;
-		next_ptr_in_a(st, &ptr);
-		counter++;
-	}
+	search_bad_head_in_snh(st, &ptr, &tmp);
 	i = 0;
 	tmp = st->a.head;
 	ra_rra_count_in_snh(st, ptr, tmp, &i);
