@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 23:09:05 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/04/19 23:09:07 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/20 18:22:48 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,6 +355,8 @@ int
 		if (num > ptr->num)
 			return (FALSE);
 		num = ptr->num;
+		if (ptr == st->a.tail)
+			return (TRUE);
 		ptr = ptr->next;
 	}
 	return (TRUE);
@@ -783,6 +785,10 @@ int
 		{
 			counter++;
 			ptr->group = 1;
+			if (ptr != st->a.tail)
+				ptr->next->group = 1;
+			else
+				st->a.head->group = 1;
 			ptr = ptr->next;
 		}
 		ret = max_is(counter, ret);
@@ -993,23 +999,64 @@ void
 }
 
 void
-	set_min_of_asc(t_stacks *st, int *min, t_dlist *ptr)
+	next_ptr_in_a(t_stacks *st, t_dlist **ptr)
 {
-	*min = INT_MAX;
-	ptr = st->a.head;
-	while (ptr != st->a.tail)
-	{
-		if (ptr->group == 1)
-			*min = min_is(*min, ptr->num);
-		ptr = ptr->next;
-	}
-	if (ptr->group == 1)
-		*min = min_is(*min, ptr->num);
+	if (*ptr != st->a.tail)
+		*ptr = (*ptr)->next;
+	else
+		*ptr = st->a.head;
 }
 
 void
-	set_not_asc_head(t_stacks *st, int i)
+	next_index_is(int *i, int len)
 {
+	if (*i == len - 1)
+		*i = 0;
+	else
+		(*i)++;
+}
+
+void
+	set_not_head(t_stacks *st)
+{
+	int	i;
+	int	counter;
+	int	len;
+	t_dlist	*ptr;
+	t_dlist	*tmp;
+
+	counter = 0;
+	ptr = st->a.head;
+	while (counter < 5)
+	{
+		i = 0;
+		while (i < st->len)
+		{
+			if (ptr->num == st->nums[i])
+				break;
+			i++;
+		}
+		len = 0;
+		tmp = ptr;
+		while (ptr->num == st->nums[i])
+		{
+			len++;
+			next_index_is(&i, st->len);
+			next_ptr_in_a(st, &ptr);
+		}
+		if (len == 3)
+			break;
+		ptr = tmp;
+		next_ptr_in_a(st, &ptr);
+		counter++;
+	}
+	i = 0;
+	tmp = st->a.head;
+	while (tmp->num != ptr->num)
+	{
+		next_ptr_in_a(st, &tmp);
+		i++;
+	}
 	if (i < 3)
 	{
 		while (i > 0)
@@ -1028,34 +1075,6 @@ void
 			i++;
 		}
 	}
-}
-
-void
-	set_not_head(t_stacks *st)
-{
-	int	min;
-	int	i;
-	t_dlist	*ptr;
-
-	ptr = st->a.head;
-	set_min_of_asc(st, &min, ptr);
-	i = 0;
-	while (ptr->num != min)
-	{
-		i++;
-		ptr = ptr->next;
-	}
-	if (i == 0 && st->a.head->num == min)
-	{
-		i = 4;
-		ptr = st->a.tail;
-		while (ptr->prev->num == min)
-			i--;
-	}
-	i += 3;
-	if (i > 4)
-		i -= 4;
-	set_not_asc_head(st, i);
 }
 
 void
@@ -1089,7 +1108,7 @@ void
 void
 	push_fs_act(t_stacks *st, int *f_len, int *s_len, int num)
 {
-	if (f_len <= s_len)
+	if (*f_len < *s_len)
 	{
 		while (st->a.head->num != st->nums[num])
 		{
@@ -1117,11 +1136,11 @@ void
 	t_dlist	*ptr;
 
 	*f_len = 0;
-	*s_len = 0;
+	*s_len = 1;
 	ptr = st->a.head;
 	check_f_len(st, f_len, ptr, num);
 	ptr = st->a.tail;
-	check_f_len(st, s_len, ptr, num);
+	check_s_len(st, s_len, ptr, num);
 	push_fs_act(st, f_len, s_len, num);
 }
 
@@ -1155,7 +1174,8 @@ void
 		set_three(st);
 	else if (counter == 3)
 		set_two(st);
-	final_rotates(st);
+	if (check_stack(st) == FALSE)
+		final_rotates(st);
 }
 
 void
