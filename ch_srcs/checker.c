@@ -415,6 +415,7 @@ int
 	return (TRUE);
 }
 
+	display_stack(&st, "here");
 int
 	main(int ac, char **av)
 {
@@ -424,6 +425,9 @@ int
 		exit_error();
 	st.len = ac - 1;
 	if (pack_stack(&st, av) == FALSE)
+		exit_error();
+	//TODO: error act for duplicate
+	if (pack_sort_array(&st) == FALSE || check_duplicate(&st) == FALSE)
 		exit_error();
 	if (get_do_ord(&st) == FALSE)
 		exit_error();
