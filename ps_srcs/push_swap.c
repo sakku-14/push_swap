@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 23:09:05 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/04/20 18:27:54 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/20 18:32:59 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1017,6 +1017,16 @@ void
 }
 
 void
+	ra_rra_count_in_snh(t_stacks *st, t_dlist *ptr, t_dlist *tmp, int *i)
+{
+	while (tmp->num != ptr->num)
+	{
+		next_ptr_in_a(st, &tmp);
+		(*i)++;
+	}
+}
+
+void
 	ra_rra_in_snh(t_stacks *st, int i)
 {
 	if (i < 3)
@@ -1075,32 +1085,8 @@ void
 	}
 	i = 0;
 	tmp = st->a.head;
-	while (tmp->num != ptr->num)
-	{
-		next_ptr_in_a(st, &tmp);
-		i++;
-	}
+	ra_rra_count_in_snh(st, ptr, tmp, &i);
 	ra_rra_in_snh(st, i);
-	/*
-	if (i < 3)
-	{
-		while (i > 0)
-		{
-			rotate(&st->a);
-			write(1, "ra\n", 3);
-			i--;
-		}
-	}
-	else
-	{
-		while (i < 5)
-		{
-			rev_rotate(&st->a);
-			write(1, "rra\n", 4);
-			i++;
-		}
-	}
-	*/
 }
 
 void
