@@ -1041,7 +1041,7 @@ void
 			i--;
 	}
 	i += 3;
-	if (i > 5)
+	if (i > 4)
 		i -= 4;
 	set_not_asc_head(st, i);
 }
@@ -1139,7 +1139,7 @@ void
 	counter = asc_count(st);
 	if (counter == 1)
 		set_five(st);
-	if (counter == 2)
+	else if (counter == 2)
 		set_three(st);
 	else if (counter == 3)
 		set_two(st);
