@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 23:09:05 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/04/20 18:46:32 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/20 19:39:44 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1217,6 +1217,21 @@ void
 }
 
 int
+	check_duplicate(t_stacks *st)
+{
+	int i;
+
+	i = 0;
+	while (i < st->len - 1)
+	{
+		if (st->nums[i] == st->nums[i + 1])
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}
+
+int
 	main(int ac, char **av)
 {
 	t_stacks	st;
@@ -1228,7 +1243,7 @@ int
 		exit_error();
 	if (check_stack(&st) == TRUE)
 		exit (0);
-	if (pack_sort_array(&st) == FALSE)
+	if (pack_sort_array(&st) == FALSE || check_duplicate(&st) == FALSE)
 		exit_error();
 	if (st.len == 3 || st.len == 5)
 		sort_less_elem(&st);
