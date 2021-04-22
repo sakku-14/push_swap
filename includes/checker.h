@@ -39,6 +39,8 @@ typedef struct	s_stacks
 {
 	t_stack	a;
 	t_stack	b;
+	int		*nums;
+	int		n_ptr;
 	int		len;
 }				t_stacks;
 

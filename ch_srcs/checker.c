@@ -414,8 +414,111 @@ int
 		return (FALSE);
 	return (TRUE);
 }
+void
+	pack_array(t_stacks *st)
+{
+	int		i;
+	t_dlist	*ptr;
 
-	display_stack(&st, "here");
+	i = 0;
+	ptr = st->a.head;
+	while (ptr != st->a.tail)
+	{
+		st->nums[i++] = ptr->num;
+		ptr = ptr->next;
+	}
+	st->nums[i] = ptr->num;
+}
+
+//FOR debug
+void
+	display_array(int *x, int len)
+{
+	int i = 0;
+	while (i < len)
+		printf("%d-", x[i++]);
+	printf("\n");
+}
+
+void
+	swap_num(int *nums, int l, int r)
+{
+	int tmp;
+
+	tmp = nums[l];
+	nums[l] = nums[r];
+	nums[r] = tmp;
+}
+
+int
+	swap_array(int *nums, int pivot, int *l, int *r)
+{
+	while (nums[*l] < pivot)
+		(*l)++;
+	while (nums[*r] > pivot)
+		(*r)--;
+	if (*l >= *r)
+		return (FALSE);
+	swap_num(nums, *l, *r);
+	return (TRUE);
+}
+
+void
+	q_sort_array(int *nums, int left, int right)
+{
+	int pivot;
+	int l;
+	int r;
+
+	l = left;
+	r = right;
+	pivot = nums[l];
+	while (1)
+	{
+		if (swap_array(nums, pivot, &l, &r) == FALSE)
+			break ;
+		l++;
+		r--;
+	}
+	if (left < l - 1)
+		q_sort_array(nums, left, l - 1);
+	if (right > r + 1)
+		q_sort_array(nums, r + 1, right);
+}
+
+void
+	sort_array(int *nums, int len)
+{
+	q_sort_array(nums, 0, len - 1);
+	//display_array(nums, len);
+}
+
+int
+	pack_sort_array(t_stacks *st)
+{
+	if (!(st->nums = malloc(sizeof(int) * (st->len))))
+		return (FALSE);
+	pack_array(st);
+	sort_array(st->nums, st->len);
+	st->n_ptr = 0;
+	return (TRUE);
+}
+
+int
+	check_duplicate(t_stacks *st)
+{
+	int i;
+
+	i = 0;
+	while (i < st->len - 1)
+	{
+		if (st->nums[i] == st->nums[i + 1])
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}
+
 int
 	main(int ac, char **av)
 {
