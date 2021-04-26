@@ -1,4 +1,4 @@
-#include "../includes/common_utility.h"
+#include "../includes/checker.h"
 
 void
 	swap_num(int *nums, int l, int r)
@@ -50,5 +50,4 @@ void
 	sort_array(int *nums, int len)
 {
 	q_sort_array(nums, 0, len - 1);
-	//display_array(nums, len);
 }

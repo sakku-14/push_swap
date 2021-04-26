@@ -1,23 +1,19 @@
-#include "../includes/common_utility.h"
+#include "../includes/checker.h"
 
 void
 	rotate(t_stack *stack)
 {
-	int t_num;
-	int t_group;
+	int tmp;
 	t_dlist *ptr;
 
-	t_num = stack->head->num;
-	t_group = stack->head->group;
+	tmp = stack->head->num;
 	ptr = stack->head;
 	while (ptr != stack->tail)
 	{
 		ptr->num = ptr->next->num;
-		ptr->group = ptr->next->group;
 		ptr = ptr->next;
 	}
-	ptr->num = t_num;
-	ptr->group = t_group;
+	ptr->num = tmp;
 }
 
 void
@@ -30,21 +26,17 @@ void
 void
 	rev_rotate(t_stack *stack)
 {
-	int t_num;
-	int t_group;
+	int tmp;
 	t_dlist *ptr;
 
-	t_num = stack->tail->num;
-	t_group = stack->tail->group;
+	tmp = stack->tail->num;
 	ptr = stack->tail;
 	while (ptr != stack->head)
 	{
 		ptr->num = ptr->prev->num;
-		ptr->group = ptr->prev->group;
 		ptr = ptr->prev;
 	}
-	ptr->num = t_num;
-	ptr->group = t_group;
+	ptr->num = tmp;
 }
 
 void

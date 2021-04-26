@@ -1,5 +1,54 @@
-#include "../includes/common_utility.h"
+#include "../includes/push_swap.h"
 
+int
+	ft_dlstadd_back(t_stack *stack, int num, int exist)
+{
+	t_dlist *new;
+
+	if (!(new = malloc(sizeof(t_dlist))))
+		return (FALSE);
+	stack->tail->next = new;
+	stack->head->prev = new;
+	new->num = num;
+	new->group = 0;
+	new->exist = exist;
+	new->next = stack->head;
+	new->prev = stack->tail;
+	stack->tail = new;
+	return (TRUE);
+}
+
+void
+	ft_dlstnew(t_stack *stack, int num, int exist)
+{
+	t_dlist *lst;
+
+	lst = malloc(sizeof(t_dlist));
+	lst->num = num;
+	lst->group = 0;
+	lst->exist = exist;
+	lst->next = lst;
+	lst->prev = lst;
+	stack->head = lst;
+	stack->tail = lst;
+}
+
+int
+	build_stack_b(t_stacks *st)
+{
+	int	i;
+
+	ft_dlstnew(&st->b, -1, 0);
+	i = 2;
+	while (i < st->len + 1)
+	{
+		if (ft_dlstadd_back(&st->b, -1, 0) == FALSE)
+			return (FALSE);
+		i++;
+	}
+	st->b.tail = st->b.head;
+	return (TRUE);
+}
 int
 	check_over_int_range(char *str)
 {
