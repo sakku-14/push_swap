@@ -1,8 +1,8 @@
-NAME			= push_swap
+NAME			= checker
 CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
 RM				= rm -f
-SRCDIR		= ./
+SRCDIR			= ./
 INCDIR			= ../includes/
 GNLINCDIR		= ../get_next_line/
 SRCNAME			= $(shell echo *.c)
