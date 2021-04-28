@@ -3,9 +3,10 @@
 int
 	ft_dlstadd_back(t_stack *stack, int num, int exist)
 {
-	t_dlist *new;
+	t_dlist	*new;
 
-	if (!(new = malloc(sizeof(t_dlist))))
+	new = malloc(sizeof(t_dlist));
+	if (new == NULL)
 		return (FALSE);
 	stack->tail->next = new;
 	stack->head->prev = new;
@@ -20,13 +21,16 @@ int
 void
 	ft_dlstnew(t_stack *stack, int num, int exist)
 {
-	t_dlist *lst;
+	t_dlist	*lst;
 
 	lst = malloc(sizeof(t_dlist));
+	if (lst == NULL)
+		return (FALSE);
 	lst->num = num;
 	lst->exist = exist;
 	lst->next = lst;
 	lst->prev = lst;
 	stack->head = lst;
 	stack->tail = lst;
+	return (TRUE);
 }

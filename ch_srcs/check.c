@@ -3,8 +3,8 @@
 int
 	check_av(int ac, char **av)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	i = 1;
 	while (i < ac)
@@ -53,7 +53,7 @@ int
 int
 	check_duplicate(t_stacks *st)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < st->len - 1)
