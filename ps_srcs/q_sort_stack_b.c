@@ -4,10 +4,11 @@ int
 	set_pivot_b(t_stacks *st, int *counter)
 {
 	int		len;
-	int		nums[st->len];
+	int		*nums;
 	t_dlist	*ptr;
 
 	len = 0;
+	nums = malloc(sizeof(int) * st->len);
 	ptr = st->b.head;
 	while (ptr != st->b.tail)
 	{
@@ -39,6 +40,24 @@ int
 	return (TRUE);
 }
 
+static int
+	q_sort_stack_b_sub(t_stacks *st, int pivot)
+{
+	if (st->b.head->num > pivot)
+	{
+		if (push(st, 'a') == FALSE)
+			return (FALSE);
+		st->a.head->group = st->grp_ctr;
+		write(1, "pa\n", 3);
+	}
+	else
+	{
+		rotate(&(st->b));
+		write(1, "rb\n", 3);
+	}
+	return (TRUE);
+}
+
 void
 	q_sort_stack_b(t_stacks *st)
 {
@@ -54,18 +73,8 @@ void
 		counter -= set_sorted(st);
 		if (check_stack(st) == TRUE)
 			break ;
-		if (st->b.head->num > pivot)
-		{
-			if (push(st, 'a') == FALSE)
-				break ;
-			st->a.head->group = st->grp_ctr;
-			write(1, "pa\n", 3);
-		}
-		else
-		{
-			rotate(&(st->b));
-			write(1, "rb\n", 3);
-		}
+		if (q_sort_stack_b_sub(st, pivot) == FALSE)
+			break ;
 		counter--;
 		if (check_stack(st) == TRUE)
 			break ;
