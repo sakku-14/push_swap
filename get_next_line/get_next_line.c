@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 13:39:50 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/04/28 14:59:23 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:08:23 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,14 @@ int	get_next_line(int fd, char **line)
 	if (!line || fd < 0 || fd > MAX_FD)
 		return (-1);
 	if (!save[fd])
-		if (first_set_save(save, fd) == FALSE)
+		if (first_set_save(save, fd) == FAILURE)
 			return (-1);
 	buf = malloc(BUFFER_SIZE);
 	if (buf == NULL)
 		return (gnl_erroract(&save[fd], NULL, NULL));
 	if (ft_memchr(save[fd], '\n', ft_strlen(save[fd])))
 		return (gnl_overwite(&save[fd], line, buf));
-	while (read_buf(&len, fd, buf, BUFFER_SIZE) == TRUE)
+	while (read_buf(&len, fd, buf, BUFFER_SIZE) == SUCCESS)
 	{
 		if (gnl_attach(buf, &save[fd], len))
 			return (gnl_erroract(&save[fd], NULL, buf));

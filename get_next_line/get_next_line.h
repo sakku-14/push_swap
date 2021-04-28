@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 13:43:50 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/04/28 14:47:19 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:07:29 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 # define MAX_FD 256
 # define BUFFER_SIZE 100000
-# define TRUE 1
-# define FALSE 0
+# define SUCCESS 1
+# define FAILURE 0
 
 int		get_next_line(int fd, char **line);
 void	*ft_calloc(size_t count, size_t size);
