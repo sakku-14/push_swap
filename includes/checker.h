@@ -6,12 +6,12 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:19:38 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/04/01 13:43:15 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/29 06:35:01 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _CHECKER_H
-# define _CHECKER_H
+#ifndef CHECKER_H
+# define CHECKER_H
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -21,21 +21,21 @@
 # define FALSE -1
 # define TRUE 0
 
-typedef struct	s_dlist
+typedef struct s_dlist
 {
 	int				num;
-	int				exist;// exist->1, not->0
+	int				exist;
 	struct s_dlist	*prev;
 	struct s_dlist	*next;
 }				t_dlist;
 
-typedef struct	s_stack
+typedef struct s_stack
 {
 	t_dlist	*head;
 	t_dlist	*tail;
 }				t_stack;
 
-typedef struct	s_stacks
+typedef struct s_stacks
 {
 	t_stack	a;
 	t_stack	b;
@@ -53,9 +53,9 @@ int
 int
 	check_duplicate(t_stacks *st);
 void
-	display_array(int *x, int len);//debug
+	display_array(int *x, int len);
 void
-	display_stack(t_stacks *st, char *str);//debug
+	display_stack(t_stacks *st, char *str);
 int
 	ft_dlstadd_back(t_stack *stack, int num, int exist);
 int
