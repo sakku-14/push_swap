@@ -9,6 +9,13 @@ void
 		*i = 0;
 }
 
+static void
+	set_ptr_num(t_stacks *st, int *i, t_dlist *ptr)
+{
+	while (st->nums[*i] != ptr->num)
+		(*i)++;
+}
+
 int
 	check_a_asc(t_stacks *st)
 {
@@ -19,8 +26,7 @@ int
 	i = 0;
 	counter = 0;
 	ptr = st->a.head;
-	while (st->nums[i] != ptr->num)
-		i++;
+	set_ptr_num(st, &i, ptr);
 	while (counter != 3)
 	{
 		if (st->nums[i] == st->b.head->num || st->nums[i] == st->b.tail->num)
