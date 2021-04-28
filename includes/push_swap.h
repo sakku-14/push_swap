@@ -84,7 +84,7 @@ int
 	pack_sort_array(t_stacks *st);
 int
 	ft_dlstadd_back(t_stack *stack, int num, int exist);
-void
+int
 	ft_dlstnew(t_stack *stack, int num, int exist);
 int
 	build_stack_b(t_stacks *st);
