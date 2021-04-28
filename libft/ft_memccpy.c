@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 23:03:20 by ysakuma           #+#    #+#             */
-/*   Updated: 2020/10/15 13:49:49 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:19:27 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	unsigned	char	*dst_c;
-	unsigned	char	*src_c;
+	unsigned char	*dst_c;
+	unsigned char	*src_c;
 
 	dst_c = (unsigned char *)dst;
 	src_c = (unsigned char *)src;

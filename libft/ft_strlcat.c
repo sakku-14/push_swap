@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 22:54:20 by ysakuma           #+#    #+#             */
-/*   Updated: 2020/10/13 22:54:21 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:26:22 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	size_t len;
-	size_t room;
+	size_t	len;
+	size_t	room;
 
 	if (dstsize < ft_strlen(dst))
 	{

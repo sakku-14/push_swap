@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 22:50:22 by ysakuma           #+#    #+#             */
-/*   Updated: 2020/10/15 16:08:20 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:16:14 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,18 @@ static void	set_num(int flag, int digit, char *num, int n)
 		num[digit] = -(n % 10) + '0';
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char	*num;
 	int		digit;
 	int		flag;
 
-	if ((flag = check_negative(n)))
+	flag = check_negative(n);
+	if (flag)
 		n *= -1;
 	digit = digit_is(n, flag);
-	if (!(num = (char *)malloc(sizeof(char) * (digit + 1))))
+	num = (char *)malloc(sizeof(char) * (digit + 1));
+	if (num == NULL)
 		return (NULL);
 	set_num(flag, digit, num, n);
 	return (num);

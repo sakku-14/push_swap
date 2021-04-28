@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 22:54:05 by ysakuma           #+#    #+#             */
-/*   Updated: 2020/10/15 15:03:32 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:26:06 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	char	*ret;
 
 	len = ft_strlen(s1) + ft_strlen(s2);
-	if (!(ret = (char *)malloc(sizeof(char) * (len + 1))))
+	ret = (char *)malloc(sizeof(char) * (len + 1));
+	if (ret == NULL)
 		return (NULL);
 	ret[0] = '\0';
 	i = 0;

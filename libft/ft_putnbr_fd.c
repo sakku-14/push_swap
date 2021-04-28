@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 22:52:46 by ysakuma           #+#    #+#             */
-/*   Updated: 2020/10/13 22:52:47 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:21:52 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	unsigned int nbr;
+	unsigned int	nbr;
 
 	if (n < 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 23:18:59 by ysakuma           #+#    #+#             */
-/*   Updated: 2020/10/13 23:19:00 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:19:00 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 t_list	*ft_lstnew(void *content)
 {
-	t_list *lst;
+	t_list	*lst;
 
-	if (!(lst = malloc(sizeof(t_list))))
+	lst = malloc(sizeof(t_list));
+	if (lst == NULL)
 		return (NULL);
 	lst->next = NULL;
 	lst->content = content;

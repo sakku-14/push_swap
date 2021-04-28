@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 22:52:06 by ysakuma           #+#    #+#             */
-/*   Updated: 2020/10/15 13:52:08 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:21:40 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	*memcpy_rev(void *dst, const void *src, size_t len)
 {
-	char			*dst_c;
-	const	char	*src_c;
+	char		*dst_c;
+	const char	*src_c;
 
 	dst_c = dst + len - 1;
 	src_c = src + len - 1;
@@ -24,7 +24,7 @@ static void	*memcpy_rev(void *dst, const void *src, size_t len)
 	return (dst);
 }
 
-void		*ft_memmove(void *dst, const void *src, size_t len)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	if (dst > src)
 		return (memcpy_rev(dst, src, len));

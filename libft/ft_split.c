@@ -6,15 +6,15 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 22:53:10 by ysakuma           #+#    #+#             */
-/*   Updated: 2020/10/15 15:09:39 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:24:37 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int		count_words(char *s, char c)
+static int	count_words(char *s, char c)
 {
-	int cnt;
+	int	cnt;
 
 	cnt = 0;
 	while (*s)
@@ -30,9 +30,9 @@ static	int		count_words(char *s, char c)
 	return (cnt);
 }
 
-static	char	*my_strncpy(char *dest, char *src, unsigned int n)
+static char	*my_strncpy(char *dest, char *src, unsigned int n)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	while ((i < n) && (src[i] != '\0'))
@@ -44,7 +44,7 @@ static	char	*my_strncpy(char *dest, char *src, unsigned int n)
 	return (dest);
 }
 
-static	int		free_strs(char **p, int i)
+static int	free_strs(char **p, int i)
 {
 	while (i-- > 0)
 		free(p[i]);
@@ -52,7 +52,7 @@ static	int		free_strs(char **p, int i)
 	return (0);
 }
 
-static	int		set_words(char **p, char *s, char *c, int size)
+static int	set_words(char **p, char *s, char *c, int size)
 {
 	int		wlen;
 	int		i;
@@ -70,7 +70,8 @@ static	int		set_words(char **p, char *s, char *c, int size)
 			wlen++;
 			tmp++;
 		}
-		if (!(p[i] = (char*)malloc(sizeof(char) * (wlen + 1))))
+		p[i] = (char *)malloc(sizeof(char) * (wlen + 1));
+		if (p[i] == NULL)
 			return (free_strs(p, i));
 		my_strncpy(p[i], s, wlen);
 		s += wlen;
@@ -78,7 +79,7 @@ static	int		set_words(char **p, char *s, char *c, int size)
 	return (1);
 }
 
-char			**ft_split(char const *str, char c)
+char	**ft_split(char const *str, char c)
 {
 	char	**p;
 	char	*s;
@@ -88,7 +89,8 @@ char			**ft_split(char const *str, char c)
 		return (NULL);
 	s = (char *)str;
 	size = count_words(s, c);
-	if (!(p = (char **)malloc(sizeof(char *) * (size + 1))))
+	p = (char **)malloc(sizeof(char *) * (size + 1));
+	if (p == NULL)
 		return (NULL);
 	if (!(set_words(p, s, &c, size)))
 		return (NULL);

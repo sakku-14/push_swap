@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 23:02:37 by ysakuma           #+#    #+#             */
-/*   Updated: 2020/10/13 23:02:38 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:19:11 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_lstsize(t_list *lst)
 {
-	int counter;
+	int	counter;
 
 	counter = 0;
 	if (!lst)
