@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:19:38 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/04/29 06:43:43 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/04/29 06:48:49 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,41 +45,41 @@ typedef struct s_stacks
 }				t_stacks;
 
 int
-		check_av(int ac, char **av);
+	check_av(int ac, char **av);
 int
-		check_stack_a(t_stacks *st);
+	check_stack_a(t_stacks *st);
 int
-		check_stack(t_stacks *st);
+	check_stack(t_stacks *st);
 int
-		check_duplicate(t_stacks *st);
+	check_duplicate(t_stacks *st);
 void
-		display_array(int *x, int len);
+	display_array(int *x, int len);
 void
-		display_stack(t_stacks *st, char *str);
+	display_stack(t_stacks *st, char *str);
 int
-		ft_dlstadd_back(t_stack *stack, int num, int exist);
+	ft_dlstadd_back(t_stack *stack, int num, int exist);
 int
-		ft_dlstnew(t_stack *stack, int num, int exist);
+	ft_dlstnew(t_stack *stack, int num, int exist);
 int
-		print_error(void);
+	print_error(void);
 int
-		exit_error(void);
+	exit_error(void);
 int
-		check_order(char *buf);
+	check_order(char *buf);
 void
-		do_order(t_stacks *st, char *buf);
+	do_order(t_stacks *st, char *buf);
 int
-		get_do_ord(t_stacks *st);
+	get_do_ord(t_stacks *st);
 void
-		pack_array(t_stacks *st);
+	pack_array(t_stacks *st);
 int
-		pack_sort_array(t_stacks *st);
+	pack_sort_array(t_stacks *st);
 int
-		build_stack_b(t_stacks *st);
+	build_stack_b(t_stacks *st);
 int
-		check_over_int_range(char *str);
+	check_over_int_range(char *str);
 int
-		pack_stack(t_stacks *st, char **av);
+	pack_stack(t_stacks *st, char **av);
 int
 	push_available(t_stacks *st, char to);
 void
