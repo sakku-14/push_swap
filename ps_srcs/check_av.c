@@ -3,8 +3,8 @@
 int
 	check_av(int ac, char **av)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	i = 1;
 	while (i < ac)

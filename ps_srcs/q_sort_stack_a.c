@@ -3,7 +3,7 @@
 void
 	q_sort_stack_a(t_stacks *st)
 {
-	int group;
+	int	group;
 
 	group = st->a.head->group;
 	while (st->a.head->group == group && st->a.head->num != st->nums[0])

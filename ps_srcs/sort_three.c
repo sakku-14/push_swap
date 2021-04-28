@@ -3,8 +3,8 @@
 int
 	check_three_asc(t_stacks *st)
 {
-	int	i;
-	int	counter;
+	int		i;
+	int		counter;
 	t_dlist	*ptr;
 
 	i = 0;
@@ -30,7 +30,7 @@ int
 int
 	ra_need(t_stacks *st, int num)
 {
-	int	head;
+	int		head;
 	t_dlist	*ptr;
 
 	head = 0;

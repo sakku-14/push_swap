@@ -56,11 +56,14 @@ void
 int
 	get_do_ord(t_stacks *st)
 {
-	int ret;
-	char *buf;
+	int		ret;
+	char	*buf;
 
-	while ((ret = get_next_line(0, &buf)) != 0)
+	while (1)
 	{
+		ret = get_next_line(0, &buf);
+		if (ret == 0)
+			break ;
 		if (ret < 0)
 			return (FALSE);
 		if (check_order(buf) == FALSE)

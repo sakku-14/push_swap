@@ -12,7 +12,7 @@ void
 int
 	scale_len_is_3(t_stacks *st, t_dlist **ptr, int *i)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while ((*ptr)->num == st->nums[*i])

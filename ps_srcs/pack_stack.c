@@ -3,9 +3,10 @@
 int
 	ft_dlstadd_back(t_stack *stack, int num, int exist)
 {
-	t_dlist *new;
+	t_dlist	*new;
 
-	if (!(new = malloc(sizeof(t_dlist))))
+	new = malloc(sizeof(t_dlist));
+	if (new == NULL)
 		return (FALSE);
 	stack->tail->next = new;
 	stack->head->prev = new;
@@ -21,7 +22,7 @@ int
 int
 	ft_dlstnew(t_stack *stack, int num, int exist)
 {
-	t_dlist *lst;
+	t_dlist	*lst;
 
 	lst = malloc(sizeof(t_dlist));
 	if (lst == NULL)
@@ -53,6 +54,7 @@ int
 	st->b.tail = st->b.head;
 	return (TRUE);
 }
+
 int
 	check_over_int_range(char *str)
 {

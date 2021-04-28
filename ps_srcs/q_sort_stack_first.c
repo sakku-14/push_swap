@@ -3,8 +3,8 @@
 void
 	q_sort_stack_first(t_stacks *st)
 {
-	int		pivot;
-	int		counter;
+	int	pivot;
+	int	counter;
 
 	pivot = st->nums[(st->len - 1) / 2];
 	counter = 0;

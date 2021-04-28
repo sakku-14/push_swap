@@ -25,7 +25,7 @@ int
 int
 	all_under_pivot(t_stack *b, int pivot)
 {
-	t_dlist *ptr;
+	t_dlist	*ptr;
 
 	ptr = b->head;
 	while (ptr != b->tail)
@@ -42,22 +42,22 @@ int
 void
 	q_sort_stack_b(t_stacks *st)
 {
-	int		pivot;
-	int		counter;
+	int	pivot;
+	int	counter;
 
 	pivot = set_pivot_b(st, &counter);
 	st->grp_ctr++;
 	while (counter > 0)
 	{
 		if (check_stack(st) == TRUE)
-			break;
+			break ;
 		counter -= set_sorted(st);
 		if (check_stack(st) == TRUE)
-			break;
+			break ;
 		if (st->b.head->num > pivot)
 		{
 			if (push(st, 'a') == FALSE)
-				break;
+				break ;
 			st->a.head->group = st->grp_ctr;
 			write(1, "pa\n", 3);
 		}
@@ -68,9 +68,9 @@ void
 		}
 		counter--;
 		if (check_stack(st) == TRUE)
-			break;
+			break ;
 		counter -= set_sorted(st);
 		if (check_stack(st) == TRUE)
-			break;
+			break ;
 	}
 }

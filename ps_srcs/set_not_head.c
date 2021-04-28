@@ -3,7 +3,7 @@
 void
 	set_not_head(t_stacks *st)
 {
-	int	i;
+	int		i;
 	t_dlist	*ptr;
 	t_dlist	*tmp;
 

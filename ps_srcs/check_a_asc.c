@@ -12,8 +12,8 @@ void
 int
 	check_a_asc(t_stacks *st)
 {
-	int	i;
-	int	counter;
+	int		i;
+	int		counter;
 	t_dlist	*ptr;
 
 	i = 0;

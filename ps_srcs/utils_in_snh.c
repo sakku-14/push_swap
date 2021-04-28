@@ -14,12 +14,12 @@ void
 		while (i < st->len)
 		{
 			if ((*ptr)->num == st->nums[i])
-				break;
+				break ;
 			i++;
 		}
 		*tmp = *ptr;
 		if (scale_len_is_3(st, ptr, &i) == TRUE)
-			break;
+			break ;
 		*ptr = *tmp;
 		next_ptr_in_a(st, ptr);
 		counter++;

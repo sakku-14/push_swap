@@ -32,8 +32,8 @@ int
 int
 	asc_count(t_stacks *st)
 {
-	int	ret;
-	int	counter;
+	int		ret;
+	int		counter;
 	t_dlist	*ptr;
 	t_dlist	*tmp;
 

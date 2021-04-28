@@ -3,7 +3,7 @@
 void
 	swap_num(int *nums, int l, int r)
 {
-	int tmp;
+	int	tmp;
 
 	tmp = nums[l];
 	nums[l] = nums[r];
@@ -26,9 +26,9 @@ int
 void
 	q_sort_array(int *nums, int left, int right)
 {
-	int pivot;
-	int l;
-	int r;
+	int	pivot;
+	int	l;
+	int	r;
 
 	l = left;
 	r = right;

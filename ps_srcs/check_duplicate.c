@@ -3,7 +3,7 @@
 int
 	check_duplicate(t_stacks *st)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < st->len - 1)

@@ -25,7 +25,7 @@ void
 void
 	set_asc_head(t_stacks *st)
 {
-	int	i;
+	int		i;
 	t_dlist	*ptr;
 
 	i = 0;
@@ -33,7 +33,7 @@ void
 	while (i < 5)
 	{
 		if (asc_pres_next(st, ptr) == TRUE)
-			break;
+			break ;
 		i++;
 		ptr = ptr->next;
 	}

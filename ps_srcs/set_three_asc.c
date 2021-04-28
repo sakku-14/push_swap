@@ -11,8 +11,8 @@ int
 int
 	ra_need_sub(t_stacks *st)
 {
-	int	i;
-	int	min;
+	int		i;
+	int		min;
 	t_dlist	*ptr;
 
 	ptr = st->a.head;
@@ -28,7 +28,7 @@ int
 	while (ptr != st->a.tail)
 	{
 		if (ptr->num == min)
-			break;
+			break ;
 		i++;
 		ptr = ptr->next;
 	}

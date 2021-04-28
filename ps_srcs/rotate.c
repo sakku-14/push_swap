@@ -3,9 +3,9 @@
 void
 	rotate(t_stack *stack)
 {
-	int t_num;
-	int t_group;
-	t_dlist *ptr;
+	int		t_num;
+	int		t_group;
+	t_dlist	*ptr;
 
 	t_num = stack->head->num;
 	t_group = stack->head->group;
@@ -30,9 +30,9 @@ void
 void
 	rev_rotate(t_stack *stack)
 {
-	int t_num;
-	int t_group;
-	t_dlist *ptr;
+	int		t_num;
+	int		t_group;
+	t_dlist	*ptr;
 
 	t_num = stack->tail->num;
 	t_group = stack->tail->group;
