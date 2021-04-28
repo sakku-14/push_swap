@@ -26,5 +26,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *s);
 void	*ft_memchr(const void *s, int c, size_t n);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
+int	first_set_save(char **save, int fd);
+int	read_buf(ssize_t *len, int fd, char *buf, int buf_size);
 
 #endif

@@ -7,7 +7,8 @@ INCDIR			= ../includes/
 GNLINCDIR		= ../get_next_line/
 SRCNAME			= $(shell echo *.c)
 GNLSRCNAME		= get_next_line.c \
-					get_next_line_utils.c
+					get_next_line_utils.c \
+					get_next_line_utils2.c
 SRCS			= ${addprefix ${SRCDIR}, ${SRCNAME}}
 GNLSRCS			= ${addprefix ${GNLINCDIR}, ${GNLSRCNAME}}
 OBJS			= ${SRCS:.c=.o}
