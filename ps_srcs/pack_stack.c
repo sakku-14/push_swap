@@ -18,12 +18,14 @@ int
 	return (TRUE);
 }
 
-void
+int
 	ft_dlstnew(t_stack *stack, int num, int exist)
 {
 	t_dlist *lst;
 
 	lst = malloc(sizeof(t_dlist));
+	if (lst == NULL)
+		return (FALSE);
 	lst->num = num;
 	lst->group = 0;
 	lst->exist = exist;
@@ -31,6 +33,7 @@ void
 	lst->prev = lst;
 	stack->head = lst;
 	stack->tail = lst;
+	return (TRUE);
 }
 
 int
@@ -38,7 +41,8 @@ int
 {
 	int	i;
 
-	ft_dlstnew(&st->b, -1, 0);
+	if (ft_dlstnew(&st->b, -1, 0) == FALSE)
+		return (FALSE);
 	i = 2;
 	while (i < st->len + 1)
 	{
@@ -83,7 +87,8 @@ int
 	if (check_over_int_range(av[1]) == FALSE)
 		return (FALSE);
 	num = ft_atoi(av[1]);
-	ft_dlstnew(&st->a, num, 1);
+	if (ft_dlstnew(&st->a, num, 1) == FALSE)
+		return (FALSE);
 	i = 2;
 	while (i < st->len + 1)
 	{

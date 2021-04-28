@@ -51,7 +51,8 @@ int
 	if (check_over_int_range(av[1]) == FALSE)
 		return (FALSE);
 	num = ft_atoi(av[1]);
-	ft_dlstnew(&st->a, num, 1);
+	if (ft_dlstnew(&st->a, num, 1) == FALSE)
+		return (FALSE);
 	i = 2;
 	while (i < st->len + 1)
 	{

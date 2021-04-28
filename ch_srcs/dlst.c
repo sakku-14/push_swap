@@ -18,7 +18,7 @@ int
 	return (TRUE);
 }
 
-void
+int
 	ft_dlstnew(t_stack *stack, int num, int exist)
 {
 	t_dlist	*lst;

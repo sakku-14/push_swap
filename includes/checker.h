@@ -58,7 +58,7 @@ void
 	display_stack(t_stacks *st, char *str);//debug
 int
 	ft_dlstadd_back(t_stack *stack, int num, int exist);
-void
+int
 	ft_dlstnew(t_stack *stack, int num, int exist);
 int
 	print_error(void);
