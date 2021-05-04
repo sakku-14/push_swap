@@ -1,6 +1,6 @@
 #include "../includes/checker.h"
 
-	__attribute__((destructor))
+__attribute__((destructor))
 void    end()
 {
     system("leaks checker");
@@ -11,7 +11,9 @@ int
 {
 	t_stacks	st;
 
-	if (ac == 1 || check_av(ac, av) == FALSE)
+	if (ac == 1)
+		exit (0);
+	if (check_av(ac, av) == FALSE)
 		exit_error();
 	st.len = ac - 1;
 	if (pack_stack(&st, av) == FALSE)
