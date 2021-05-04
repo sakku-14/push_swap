@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:19:38 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/04/30 12:29:17 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/05/04 12:33:59 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@ int		check_av(int ac, char **av);
 int		check_duplicate(t_stacks *st);
 int		check_stack_a(t_stacks *st);
 int		check_stack(t_stacks *st);
-void	display_array(int *x, int len);//debug
-void	display_stack(t_stacks *st, char *str);//debug
-int		print_error(void);
 int		exit_error(void);
 void	final_rotates(t_stacks *st);
 void	next_ptr_in_a(t_stacks *st, t_dlist **ptr);

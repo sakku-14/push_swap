@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:19:38 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/04/30 12:26:27 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/05/04 12:33:48 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,8 @@ int		check_av(int ac, char **av);
 int		check_stack_a(t_stacks *st);
 int		check_stack(t_stacks *st);
 int		check_duplicate(t_stacks *st);
-void	display_array(int *x, int len);
-void	display_stack(t_stacks *st, char *str);
 int		ft_dlstadd_back(t_stack *stack, int num, int exist);
 int		ft_dlstnew(t_stack *stack, int num, int exist);
-int		print_error(void);
 int		exit_error(void);
 int		check_order(char *buf);
 void	do_order(t_stacks *st, char *buf);
