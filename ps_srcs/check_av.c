@@ -15,7 +15,7 @@ int
 			if (av[i][len] == '-' || av[i][len] == '+')
 				len++;
 			if (!(ft_isdigit(av[i][len++])))
-				return (print_error());
+				return (FALSE);
 		}
 		i++;
 	}
