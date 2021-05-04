@@ -13,7 +13,7 @@ int
 		while (av[i][len])
 		{
 			if (!(ft_isdigit(av[i][len++])))
-				return (print_error());
+				return (FALSE);
 		}
 		i++;
 	}

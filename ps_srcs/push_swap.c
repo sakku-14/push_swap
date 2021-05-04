@@ -6,11 +6,17 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 23:09:05 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/04/28 16:00:51 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/05/04 12:23:08 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+__attribute__((destructor))
+void    end()
+{
+    system("leaks push_swap");
+}
 
 int
 	main(int ac, char **av)
