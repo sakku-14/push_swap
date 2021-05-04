@@ -65,10 +65,19 @@ int
 		if (ret == 0)
 			break ;
 		if (ret < 0)
+		{
+			free(buf);
 			return (FALSE);
+		}
 		if (check_order(buf) == FALSE)
+		{
+			free(buf);
 			return (FALSE);
+		}
 		do_order(st, buf);
+		free(buf);
+		buf = NULL;
 	}
+	free(buf);
 	return (TRUE);
 }
