@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 23:09:05 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/05/04 12:58:30 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/05/11 14:45:08 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ int
 {
 	t_stacks	st;
 
-	if (ac == 1 || check_av(ac, av) == FALSE)
+	if (ac == 1)
+		exit (0);
+	if (check_av(ac, av) == FALSE)
+		exit_error();
+	if (ac > 10001)
 		exit_error();
 	st.len = ac - 1;
 	if (pack_stack(&st, av) == FALSE)

@@ -13,6 +13,8 @@ int
 
 	if (ac == 1)
 		exit (0);
+	if (ac > 10001)
+		exit_error();
 	if (check_av(ac, av) == FALSE)
 		exit_error();
 	st.len = ac - 1;
