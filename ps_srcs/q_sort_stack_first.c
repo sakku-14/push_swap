@@ -16,6 +16,14 @@ void
 			//write(1, "pb\n", 3);
 			if (add_oper(st, 5) == FALSE)
 				exit_error();
+			//TODO: check below
+			if (st->b.head->num <= st->nums[3] && st->b.head != st->b.tail)
+			{
+				rotate(&st->b);
+				if (add_oper(st, 7) == FALSE)
+					exit_error();
+				counter++;
+			}
 		}
 		else
 		{
