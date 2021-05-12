@@ -43,19 +43,25 @@ void
 	if (check_a_asc(st) == FALSE)
 	{
 		swap(&st->a);
-		write(1, "sa\n", 3);
+		//write(1, "sa\n", 3);
+		if (add_oper(st, 1) == FALSE)
+			exit_error();
 	}
 	if (check_stack_a(st) == FALSE)
 	{
 		if (ra_need_sub(st) == TRUE)
 		{
 			rotate(&st->a);
-			write(1, "ra\n", 3);
+			//write(1, "ra\n", 3);
+			if (add_oper(st, 6) == FALSE)
+				exit_error();
 		}
 		else
 		{
 			rev_rotate(&st->a);
-			write(1, "rra\n", 4);
+			//write(1, "rra\n", 4);
+			if (add_oper(st, 9) == FALSE)
+				exit_error();
 		}
 	}
 }
