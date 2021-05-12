@@ -39,7 +39,9 @@ int
 		{
 			attach_tail(st);
 			//write(1, "pa\nra\n", 6);
-			if (add_oper(st, 4) == FALSE || add_oper(st, 6) == FALSE)
+			if (add_oper(st, 4) == FALSE)
+				exit_error();
+			if (add_oper(st, 6) == FALSE)
 				exit_error();
 			counter++;
 		}
