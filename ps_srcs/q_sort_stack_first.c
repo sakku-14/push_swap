@@ -13,7 +13,6 @@ void
 		if (st->a.head->num <= pivot)
 		{
 			//just try
-			/*
 			if (st->a.head->num <= st->nums[3] && st->b.head->exist != 0)
 			{
 				push(st, 'b');
@@ -29,11 +28,12 @@ void
 				if (add_oper(st, 5) == FALSE)
 					exit_error();
 			}
-			*/
 			//default
+			/*
 			push(st, 'b');
 			if (add_oper(st, 5) == FALSE)
 				exit_error();
+			*/
 		}
 		else
 		{
