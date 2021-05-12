@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:19:38 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/05/12 14:21:42 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/05/12 15:35:34 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,12 @@ void	ra_rra_count_in_snh(t_stacks *st, t_dlist *ptr, t_dlist *tmp, int *i);
 void	ra_rra_in_snh(t_stacks *st, int i);
 int		init_st_ans(t_stacks *st);
 int		add_oper(t_stacks *st, int oper);
+int		opt_print_ans(t_stacks *st);
+void	print_ans(t_stacks *st);
+int		optimize_ans(t_stacks *st);
+int		check_optimizeable(t_stacks *st, t_dlist *sub_ptr);
+int		check_two_num(t_dlist *ptr, int a, int b);
+int		add_oper(t_stacks *st, int oper);
+int		init_st_ans(t_stacks *st);
 
 #endif
