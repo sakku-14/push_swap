@@ -9,7 +9,9 @@ void
 	while (st->a.head->group == group && st->a.head->num != st->nums[0])
 	{
 		push(st, 'b');
-		write(1, "pb\n", 3);
+		//write(1, "pb\n", 3);
+		if (add_oper(st, 5) == FALSE)
+			exit_error();
 		set_sorted(st);
 	}
 }

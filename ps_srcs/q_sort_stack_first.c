@@ -13,12 +13,16 @@ void
 		if (st->a.head->num <= pivot)
 		{
 			push(st, 'b');
-			write(1, "pb\n", 3);
+			//write(1, "pb\n", 3);
+			if (add_oper(st, 5) == FALSE)
+				exit_error();
 		}
 		else
 		{
 			rotate(&(st->a));
-			write(1, "ra\n", 3);
+			//write(1, "ra\n", 3);
+			if (add_oper(st, 6) == FALSE)
+				exit_error();
 		}
 		counter++;
 	}

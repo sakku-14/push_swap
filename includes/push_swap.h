@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:19:38 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/05/04 12:33:59 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/05/12 14:21:42 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct s_stacks
 	int		n_ptr;
 	int		len;
 	int		grp_ctr;
+	t_stack	ans_sub;
+	t_stack	ans_def;
 }				t_stacks;
 
 int		asc_pres_next(t_stacks *st, t_dlist *ptr);
@@ -117,5 +119,7 @@ void	w_swap(t_stacks *st);
 void	search_bad_head_in_snh(t_stacks *st, t_dlist **ptr, t_dlist **tmp);
 void	ra_rra_count_in_snh(t_stacks *st, t_dlist *ptr, t_dlist *tmp, int *i);
 void	ra_rra_in_snh(t_stacks *st, int i);
+int		init_st_ans(t_stacks *st);
+int		add_oper(t_stacks *st, int oper);
 
 #endif

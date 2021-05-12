@@ -48,12 +48,16 @@ static int
 		if (push(st, 'a') == FALSE)
 			return (FALSE);
 		st->a.head->group = st->grp_ctr;
-		write(1, "pa\n", 3);
+		//write(1, "pa\n", 3);
+		if (add_oper(st, 4) == FALSE)
+			exit_error();
 	}
 	else
 	{
 		rotate(&(st->b));
-		write(1, "rb\n", 3);
+		//write(1, "rb\n", 3);
+		if (add_oper(st, 7) == FALSE)
+			exit_error();
 	}
 	return (TRUE);
 }

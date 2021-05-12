@@ -1,11 +1,5 @@
 #include "../includes/checker.h"
 
-__attribute__((destructor))
-void    end()
-{
-    system("leaks checker");
-}
-
 int
 	main(int ac, char **av)
 {

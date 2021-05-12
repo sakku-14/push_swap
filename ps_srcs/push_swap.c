@@ -6,17 +6,11 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 23:09:05 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/05/11 14:45:08 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/05/12 15:00:35 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-
-__attribute__((destructor))
-void    end()
-{
-    system("leaks push_swap");
-}
 
 int
 	main(int ac, char **av)
@@ -36,9 +30,15 @@ int
 		exit (0);
 	if (pack_sort_array(&st) == FALSE || check_duplicate(&st) == FALSE)
 		exit_error();
+	if (init_st_ans(&st) == FALSE)
+		exit_error();
 	if (st.len == 3 || st.len == 5)
 		sort_less_elem(&st);
 	else
 		q_sort_stack(&st);
+	/*
+	if (opt_print_ans(&st) == FALSE)
+		exit_error();
+	*/
 	exit (0);
 }

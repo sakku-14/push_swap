@@ -31,12 +31,16 @@ int
 		{
 			rotate(&(st->a));
 			st->a.tail->group = -1;
-			write(1, "ra\n", 3);
+			//write(1, "ra\n", 3);
+			if (add_oper(st, 6) == FALSE)
+				exit_error();
 		}
 		else
 		{
 			attach_tail(st);
-			write(1, "pa\nra\n", 6);
+			//write(1, "pa\nra\n", 6);
+			if (add_oper(st, 4) == FALSE || add_oper(st, 6) == FALSE)
+				exit_error();
 			counter++;
 		}
 		flag = '\0';
