@@ -75,7 +75,13 @@ int
 			sub_ptr = sub_ptr->next;
 		}
 		else
-			sub_ptr = sub_ptr->next->next;
+		{
+			sub_ptr = sub_ptr->next;
+			if (sub_ptr != st->ans_sub.tail)
+				sub_ptr = sub_ptr->next;
+			else
+				return (TRUE);
+		}
 	}
 	if (ft_dlstadd_back(&st->ans_def, sub_ptr->num, 1) == FALSE)
 		return (FALSE);

@@ -38,6 +38,7 @@ int
 	t_dlist	*tmp;
 
 	counter = 0;
+	ret = 0;
 	tmp = st->a.head;
 	while (counter == 0 || tmp != st->a.head)
 	{
