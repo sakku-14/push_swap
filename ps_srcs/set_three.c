@@ -6,9 +6,21 @@ void
 	push(st, to);
 	push(st, to);
 	if (to == 'b')
-		write(1, "pb\npb\n", 6);
+	{
+		//write(1, "pb\npb\n", 6);
+		if (add_oper(st, 5) == FALSE)
+			exit_error();
+		if (add_oper(st, 5) == FALSE)
+			exit_error();
+	}
 	else
-		write(1, "pa\npa\n", 6);
+	{
+		//write(1, "pa\npa\n", 6);
+		if (add_oper(st, 4) == FALSE)
+			exit_error();
+		if (add_oper(st, 4) == FALSE)
+			exit_error();
+	}
 }
 
 void
