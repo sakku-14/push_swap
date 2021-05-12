@@ -6,7 +6,7 @@
 /*   By: ysakuma <ysakuma@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 23:09:05 by ysakuma           #+#    #+#             */
-/*   Updated: 2021/05/12 15:00:35 by ysakuma          ###   ########.fr       */
+/*   Updated: 2021/05/12 15:01:41 by ysakuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ int
 		sort_less_elem(&st);
 	else
 		q_sort_stack(&st);
-	/*
 	if (opt_print_ans(&st) == FALSE)
 		exit_error();
-	*/
 	exit (0);
 }

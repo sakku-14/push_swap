@@ -15,57 +15,77 @@ int
 		return (FALSE);
 	return (TRUE);
 }
-/*
+
 int
-	check_optimizeable(t_dlist *sub_ptr, t_dlist *def_ptr)
+	check_two_num(t_dlist *ptr, int a, int b)
 {
-	if (sub_ptr->num == 4 && sub_ptr->next->num == 5)
+	if (ptr->num == a && ptr->next->num == b)
+		return (TRUE);
+	else if (ptr->num == b && ptr->next->num == a)
+		return (TRUE);
+	return (FALSE);
+}
+
+int
+	check_optimizeable(t_stacks *st, t_dlist *sub_ptr)
+{
+	if (check_two_num(sub_ptr, 4, 5) == TRUE)
 		sub_ptr = sub_ptr->next->next;
-	else if (sub_ptr->num == 5 && sub_ptr->next->num == 4)
+	else if (check_two_num(sub_ptr, 6, 9) == TRUE)
 		sub_ptr = sub_ptr->next->next;
-	else if (sub_ptr->num == 6 && sub_ptr->next->num == 9)
+	else if (check_two_num(sub_ptr, 7, 10) == TRUE)
 		sub_ptr = sub_ptr->next->next;
-	else if (sub_ptr->num == 9 && sub_ptr->next->num == 6)
+	else if (check_two_num(sub_ptr, 8, 11) == TRUE)
 		sub_ptr = sub_ptr->next->next;
-	else if (sub_ptr->num == 7 && sub_ptr->next->num == 10)
-		sub_ptr = sub_ptr->next->next;
-	else if (sub_ptr->num == 10 && sub_ptr->next->num == 7)
-		sub_ptr = sub_ptr->next->next;
-	else if (sub_ptr->num == 8 && sub_ptr->next->num == 11)
-		sub_ptr = sub_ptr->next->next;
-	else if (sub_ptr->num == 11 && sub_ptr->next->num == 8)
-		sub_ptr = sub_ptr->next->next;
-	else if (sub_ptr->num == 6 && sub_ptr->next->num == 7)
-		def_ptr;
-	else if (sub_ptr->num == 5 && sub_ptr->next->num == 4)
-		sub_ptr = sub_ptr->next->next;
+	else if (check_two_num(sub_ptr, 1, 2) == TRUE)
+	{
+		if (ft_dlstadd_back(&st->ans_def, 3, 1))
+			return (FALSE);
+	}
+	else if (check_two_num(sub_ptr, 6, 7) == TRUE)
+	{
+		if (ft_dlstadd_back(&st->ans_def, 8, 1))
+			return (FALSE);
+	}
+	else if (check_two_num(sub_ptr, 9, 10) == TRUE)
+	{
+		if (ft_dlstadd_back(&st->ans_def, 11, 1))
+			return (FALSE);
+	}
+	return (FALSE);
 }
 
 int
 	optimize_ans(t_stacks *st)
 {
 	t_dlist	*sub_ptr;
-	t_dlist	*def_ptr;
 
-	if (ft_dlstnew(&st->def_sub, 0, 1) == FALSE)
+	if (ft_dlstnew(&st->ans_def, 0, 1) == FALSE)
 		return (FALSE);
 	sub_ptr = st->ans_sub.head->next;
 	while (sub_ptr != st->ans_sub.tail)
 	{
-		if (check_optimizeable(sub_ptr, def_ptr) == FALSE)
+		if (check_optimizeable(st, sub_ptr) == FALSE)
 		{
 			if (ft_dlstadd_back(&st->ans_def, sub_ptr->num, 1))
 				return (FALSE);
 			sub_ptr = sub_ptr->next;
-			def_ptr = def_ptr->next;
 		}
 	}
+	if (ft_dlstadd_back(&st->ans_def, sub_ptr->num, 1))
+		return (FALSE);
 	return (TRUE);
 }
 
 void
 	print_ans(t_stacks *st)
 {
+	t_dlist	*ptr;
+	ptr = st->ans_def.head->next;
+	while (ptr != st->ans_def.tail)
+	{
+		
+	}
 }
 
 int
@@ -73,7 +93,6 @@ int
 {
 	if (optimize_ans(st) == FALSE)
 		return (FALSE);
-	print_ans(st);
+	//print_ans(st);
 	return (TRUE);
 }
-*/
