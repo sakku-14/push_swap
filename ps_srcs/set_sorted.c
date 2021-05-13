@@ -23,6 +23,39 @@ int
 	return (FALSE);
 }
 
+static void
+	set_sorted_a(t_stacks *st)
+{
+	rotate(&(st->a));
+	st->a.tail->group = -1;
+	if (add_oper(st, 6) == FALSE)
+		exit_error();
+}
+
+static void
+	set_sorted_b(t_stacks *st, int *counter)
+{
+	attach_tail(st);
+	if (add_oper(st, 4) == FALSE)
+		exit_error();
+	if (add_oper(st, 6) == FALSE)
+		exit_error();
+	(*counter)++;
+}
+
+static void
+	set_sorted_z(t_stacks *st)
+{
+	rev_rotate(&st->b);
+	if (add_oper(st, 10) == FALSE)
+		exit_error();
+	attach_tail(st);
+	if (add_oper(st, 4) == FALSE)
+		exit_error();
+	if (add_oper(st, 6) == FALSE)
+		exit_error();
+}
+
 int
 	set_sorted(t_stacks *st)
 {
@@ -33,32 +66,11 @@ int
 	while (wated_num(st, &flag) == TRUE && st->n_ptr < st->len)
 	{
 		if (flag == 'a')
-		{
-			rotate(&(st->a));
-			st->a.tail->group = -1;
-			if (add_oper(st, 6) == FALSE)
-				exit_error();
-		}
+			set_sorted_a(st);
 		else if (flag == 'b')
-		{
-			attach_tail(st);
-			if (add_oper(st, 4) == FALSE)
-				exit_error();
-			if (add_oper(st, 6) == FALSE)
-				exit_error();
-			counter++;
-		}
+			set_sorted_b(st, &counter);
 		else if (flag == 'z')
-		{
-			rev_rotate(&st->b);
-			if (add_oper(st, 10) == FALSE)
-				exit_error();
-			attach_tail(st);
-			if (add_oper(st, 4) == FALSE)
-				exit_error();
-			if (add_oper(st, 6) == FALSE)
-				exit_error();
-		}
+			set_sorted_z(st);
 		flag = '\0';
 		st->n_ptr++;
 	}

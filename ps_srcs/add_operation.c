@@ -119,6 +119,7 @@ void
 	print_ans(t_stacks *st)
 {
 	t_dlist	*ptr;
+
 	ptr = st->ans_def.head->next;
 	while (ptr != st->ans_def.tail)
 	{

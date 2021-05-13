@@ -44,9 +44,8 @@ int
 	{
 		counter = 1;
 		ptr = tmp;
-		while (asc_pres_next(st, ptr) == TRUE && counter != 5)
+		while (asc_pres_next(st, ptr) == TRUE && counter++ != 5)
 		{
-			counter++;
 			ptr->group = 1;
 			if (ptr != st->a.tail)
 				ptr->next->group = 1;

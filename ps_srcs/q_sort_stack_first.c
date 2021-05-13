@@ -1,5 +1,24 @@
 #include "../includes/push_swap.h"
 
+static void
+	q_sort_stack_first_sp(t_stacks *st)
+{
+	push(st, 'b');
+	if (add_oper(st, 5) == FALSE)
+		exit_error();
+	rotate(&st->b);
+	if (add_oper(st, 7) == FALSE)
+		exit_error();
+}
+
+static void
+	q_sort_stack_first_norm(t_stacks *st)
+{
+	push(st, 'b');
+	if (add_oper(st, 5) == FALSE)
+		exit_error();
+}
+
 void
 	q_sort_stack_first(t_stacks *st)
 {
@@ -13,20 +32,9 @@ void
 		if (st->a.head->num <= pivot)
 		{
 			if (st->a.head->num <= st->nums[3] && st->b.head->exist != 0)
-			{
-				push(st, 'b');
-				if (add_oper(st, 5) == FALSE)
-					exit_error();
-				rotate(&st->b);
-				if (add_oper(st, 7) == FALSE)
-					exit_error();
-			}
+				q_sort_stack_first_sp(st);
 			else
-			{
-				push(st, 'b');
-				if (add_oper(st, 5) == FALSE)
-					exit_error();
-			}
+				q_sort_stack_first_norm(st);
 		}
 		else
 		{
