@@ -5,10 +5,13 @@ int
 {
 	int		len;
 	int		*nums;
+	int		ret;
 	t_dlist	*ptr;
 
 	len = 0;
 	nums = malloc(sizeof(int) * st->len);
+	if (nums == NULL)
+		exit_error();
 	ptr = st->b.head;
 	while (ptr != st->b.tail)
 	{
@@ -20,7 +23,9 @@ int
 	len++;
 	*counter = len;
 	q_sort_array(nums, 0, len - 1);
-	return (nums[(len - 1) / 2]);
+	ret = nums[(len - 1) / 2];
+	free(nums);
+	return (ret);
 }
 
 int
