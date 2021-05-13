@@ -15,7 +15,6 @@ void
 	while (st->a.head->num != st->nums[i])
 	{
 		rotate(&st->a);
-		//write(1, "ra\n", 3);
 		if (add_oper(st, 6) == FALSE)
 			exit_error();
 	}

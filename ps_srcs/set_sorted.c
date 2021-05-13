@@ -36,14 +36,12 @@ int
 		{
 			rotate(&(st->a));
 			st->a.tail->group = -1;
-			//write(1, "ra\n", 3);
 			if (add_oper(st, 6) == FALSE)
 				exit_error();
 		}
 		else if (flag == 'b')
 		{
 			attach_tail(st);
-			//write(1, "pa\nra\n", 6);
 			if (add_oper(st, 4) == FALSE)
 				exit_error();
 			if (add_oper(st, 6) == FALSE)
@@ -60,7 +58,6 @@ int
 				exit_error();
 			if (add_oper(st, 6) == FALSE)
 				exit_error();
-			//counter++;
 		}
 		flag = '\0';
 		st->n_ptr++;

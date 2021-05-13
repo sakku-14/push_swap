@@ -51,7 +51,6 @@ void
 	if (check_three_asc(st) == FALSE)
 	{
 		swap(&st->a);
-		//write(1, "sa\n", 3);
 		if (add_oper(st, 1) == FALSE)
 			exit_error();
 	}
@@ -60,14 +59,12 @@ void
 		if (ra_need(st, 3) == TRUE)
 		{
 			rotate(&st->a);
-			//write(1, "ra\n", 3);
 			if (add_oper(st, 6) == FALSE)
 				exit_error();
 		}
 		else
 		{
 			rev_rotate(&st->a);
-			//write(1, "rra\n", 4);
 			if (add_oper(st, 9) == FALSE)
 				exit_error();
 		}

@@ -5,7 +5,6 @@ void
 {
 	set_not_head(st);
 	swap(&st->a);
-	//write(1, "sa\n", 3);
 	if (add_oper(st, 1) == FALSE)
 		exit_error();
 }

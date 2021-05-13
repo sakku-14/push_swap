@@ -28,12 +28,10 @@ void
 		while (st->a.head->num != st->nums[num])
 		{
 			rotate(&st->a);
-			//write(1, "ra\n", 3);
 			if (add_oper(st, 6) == FALSE)
 				exit_error();
 		}
 		push(st, 'b');
-		//write(1, "pb\n", 3);
 		if (add_oper(st, 5) == FALSE)
 			exit_error();
 	}
@@ -42,12 +40,10 @@ void
 		while (st->a.head->num != st->nums[num])
 		{
 			rev_rotate(&st->a);
-			//write(1, "rra\n", 4);
 			if (add_oper(st, 9) == FALSE)
 				exit_error();
 		}
 		push(st, 'b');
-		//write(1, "pb\n", 3);
 		if (add_oper(st, 5) == FALSE)
 			exit_error();
 	}

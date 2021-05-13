@@ -7,7 +7,6 @@ void
 	push(st, to);
 	if (to == 'b')
 	{
-		//write(1, "pb\npb\n", 6);
 		if (add_oper(st, 5) == FALSE)
 			exit_error();
 		if (add_oper(st, 5) == FALSE)
@@ -15,7 +14,6 @@ void
 	}
 	else
 	{
-		//write(1, "pa\npa\n", 6);
 		if (add_oper(st, 4) == FALSE)
 			exit_error();
 		if (add_oper(st, 4) == FALSE)
