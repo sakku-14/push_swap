@@ -10,6 +10,14 @@ int
 	return (FALSE);
 }
 
+static int
+	check_optimizeable_sub(t_stacks *st, int index)
+{
+	if (ft_dlstadd_back(&st->ans_def, index, 1) == FALSE)
+		exit_error();
+	return (TRUE);
+}
+
 int
 	check_optimizeable(t_stacks *st, t_dlist *sub_ptr)
 {
@@ -22,23 +30,11 @@ int
 	else if (check_two_num(sub_ptr, 8, 11) == TRUE)
 		return (TRUE);
 	else if (check_two_num(sub_ptr, 1, 2) == TRUE)
-	{
-		if (ft_dlstadd_back(&st->ans_def, 3, 1) == FALSE)
-			exit_error();
-		return (TRUE);
-	}
+		return (check_optimizeable_sub(st, 3));
 	else if (check_two_num(sub_ptr, 6, 7) == TRUE)
-	{
-		if (ft_dlstadd_back(&st->ans_def, 8, 1) == FALSE)
-			exit_error();
-		return (TRUE);
-	}
+		return (check_optimizeable_sub(st, 8));
 	else if (check_two_num(sub_ptr, 9, 10) == TRUE)
-	{
-		if (ft_dlstadd_back(&st->ans_def, 11, 1) == FALSE)
-			exit_error();
-		return (TRUE);
-	}
+		return (check_optimizeable_sub(st, 11));
 	return (FALSE);
 }
 
