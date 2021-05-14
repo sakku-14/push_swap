@@ -1,5 +1,11 @@
 #include "../includes/push_swap.h"
 
+__attribute__((destructor))
+void    end()
+{
+    system("leaks push_swap");
+}
+
 int
 	main(int ac, char **av)
 {

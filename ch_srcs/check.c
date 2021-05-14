@@ -10,6 +10,8 @@ int
 	while (i < ac)
 	{
 		len = 0;
+		if (av[i][len] == '-' || av[i][len] == '+')
+			len++;
 		while (av[i][len])
 		{
 			if (!(ft_isdigit(av[i][len++])))
