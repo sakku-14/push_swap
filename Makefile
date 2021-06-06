@@ -1,11 +1,15 @@
-PUSH_SWAP		= push_swap
+NAME		= push_swap
 CHECKER			= checker
 PUSH_SWAP_DIR	= ./ps_srcs
 CHECKER_DIR		= ./ch_srcs
 
-all:
+$(NAME):
 	make -C $(PUSH_SWAP_DIR)
-	cp $(PUSH_SWAP_DIR)/$(PUSH_SWAP) ./
+	cp $(PUSH_SWAP_DIR)/$(NAME) ./
+
+all:	${NAME}
+
+bonus:
 	make -C $(CHECKER_DIR)
 	cp $(CHECKER_DIR)/$(CHECKER) ./
 
@@ -16,9 +20,9 @@ clean:
 fclean:
 	make -C $(CHECKER_DIR) fclean;
 	make -C $(PUSH_SWAP_DIR) fclean;
-	rm -f $(PUSH_SWAP)
+	rm -f $(NAME)
 	rm -f $(CHECKER)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re
