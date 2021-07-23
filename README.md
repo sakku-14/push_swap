@@ -13,27 +13,27 @@ This project is the sorting data on a stack with a limited set of instructions u
 
 ## Usage
 Clone this repository:
-```shell
+```bash
 git clone https://github.com/sakku-14/push_swap
 ```
 
 Generate ***push_swap***:
-```shell
+```bash
 make
 ```
 
 Generate ***checker***:
-```shell
+```bash
 make bonus
 ```
 
 Run ***push_swap***:
-```shell
+```bash
 ./push_swap 3 2 1
 ```
 
 Run ***checker***:
-```shell
+```bash
 ARG="3 2 1"; ./push_swap $ARG | ./checker $ARG;
 ```
 
