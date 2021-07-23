@@ -14,10 +14,10 @@ int
 	st.len = ac - 1;
 	if (pack_stack(&st, av) == FALSE)
 		exit_error();
-	if (check_stack(&st) == TRUE)
-		exit (0);
 	if (pack_sort_array(&st) == FALSE || check_duplicate(&st) == FALSE)
 		exit_error();
+	if (check_stack(&st) == TRUE)
+		exit (0);
 	if (init_st_ans(&st) == FALSE)
 		exit_error();
 	if (st.len == 3 || st.len == 5)
