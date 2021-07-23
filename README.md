@@ -39,5 +39,7 @@ ARG="3 2 1"; ./push_swap $ARG | ./checker $ARG;
 | Makefile | all, clean, fclean, re, bonus |
 | Arguments | numbers on integer　type |
 
+***how to use　をここに！***
+
 ## Author
 - Yuki Sakuma
