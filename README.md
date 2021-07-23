@@ -10,7 +10,6 @@ This project is the sorting data on a stack with a limited set of instructions u
 
 ## Requirement
 - gcc compiler
-- MacOS
 
 ## Usage
 Clone this repository:
