@@ -1,16 +1,12 @@
 # cub3d
 
 ## Features
-My first ray-casting project inspired by the world-famous eponymous 90’s game, which was the first FPS ever.
+This project is the sorting data on a stack with a limited set of instructions using the lowest possible number of actions.
 
-| Program name | cub3D |
+| Program name | push_swap |
 | ---- | ---- |
-| Makefile | all, clean, fclean, re |
-| Arguments | a map in format *.cub |
-| External functs | • open, close, read, write, printf, malloc, free, perror, strerror, exit<br>• All functions of the math library (-lm man man 3 math)<br>• All functions of the MinilibX |
-| Description | You must create a “realistic” 3D graphical representation of the inside of a maze from a first person perspective. You have to create this representation using the Ray-Casting principles mentioned earlier. |
-
-You can explore the maze with WASD key and left/right arrow. Also you can choose wall, sprite and color of ceil and floor.
+| Makefile | all, clean, fclean, re, bonus |
+| Arguments | numbers on integer　type |
 
 ## Requirement
 - gcc compiler
