@@ -14,18 +14,30 @@ This project is the sorting data on a stack with a limited set of instructions u
 ## Usage
 Clone this repository:
 ```shell
-git clone https://github.com/sakku-14/cub3d
+git clone https://github.com/sakku-14/push_swap
 ```
 
-Generate ***cub3d***:
+Generate ***push_swap***:
 ```shell
 make
 ```
 
-Run ***cub3d***:
+Generate ***checker***:
 ```shell
-./cub3d maps/map.cub
+make bonus
 ```
+
+Run ***push_swap***:
+```shell
+./push_swap 3 2 1
+```
+
+Run ***checker***:
+```shell
+ARG="3 2 1"; ./push_swap $ARG | ./checker $ARG;
+```
+
+***ここからまだ!!!!***
 
 You can also edit ***map.cub*** or create other ***.cub files***:
 
