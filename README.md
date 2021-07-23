@@ -1,4 +1,4 @@
-# cub3d
+# push_swap
 
 ## Features
 This project is the sorting data on a stack with a limited set of instructions using the lowest possible number of actions.
