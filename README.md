@@ -2,7 +2,9 @@
 
 ## Features
 This project is sorting the data on a stack with a limited set of instructions using the lowest possible number of actions.
+
 push_swap program is to show the list of instructions to sort data.
+
 checker program is to check the list of instructions and if it sorts the data, shows "OK". If it is not, shows "KO".
 
 ## Requirement
