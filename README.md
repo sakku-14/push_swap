@@ -1,7 +1,9 @@
 # push_swap
 
 ## Features
-This project is the sorting data on a stack with a limited set of instructions using the lowest possible number of actions.
+This project is sorting the data on a stack with a limited set of instructions using the lowest possible number of actions.
+push_swap program is to show the list of instructions to sort data.
+checker program is to check the list of instructions and if it sorts the data, shows "OK". If it is not, shows "KO".
 
 ## Requirement
 - gcc compiler
@@ -29,17 +31,16 @@ Run ***push_swap***:
 
 Run ***checker*** in bash:
 ```bash
+./checker 3 2 1
+<some instructions here for stdin>
+```
+
+Run ***push_swap checker*** in bash:
+```bash
 ARG="3 2 1"; ./push_swap $ARG | ./checker $ARG;
 ```
 
 ## Note
-
-| Program name | push_swap |
-| ---- | ---- |
-| Makefile | all, clean, fclean, re, bonus |
-| Arguments | numbers on integer　type |
-
-***how to use　をここに！***
 
 ## Author
 - Yuki Sakuma
