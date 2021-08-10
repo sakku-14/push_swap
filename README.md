@@ -7,6 +7,9 @@ push_swap program is to show the list of instructions to sort data.
 
 checker program is to check the list of instructions and if it sorts the data, shows "OK". If it is not, shows "KO".
 
+![mov3](https://user-images.githubusercontent.com/65479630/128793172-5ef26317-53fe-469a-8e8e-f533a1054505.gif)
+
+
 ## Requirement
 - gcc compiler
 
